@@ -1,0 +1,16 @@
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: 'Mitr', sans-serif !important;
+}
+
+body {
+    font-family: "Kanit",sans-serif !important;
+    font-size: 14px !important;
+    line-height: 1.72222;
+}
+
+#map{
+    /* position: absolute; */
+    height: 500px;
+    width: 100%;
+    /* border-radius: 10px; */
+}

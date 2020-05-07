@@ -1,0 +1,22 @@
+{
+  "name": "acci-bot",
+  "version": "1.0.0",
+  "description": "acci-bot for Uttraradit safety city project",
+  "main": "local_3100.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "acci-bot",
+    "accident",
+    "uttraradit"
+  ],
+  "author": "sakda homhuan",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "pg": "^7.17.1"
+  }
+}

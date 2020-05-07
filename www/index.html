@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>บันทึกข้อมูลอุบัติเหตุ</title>
+
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mitr&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit&display=swap">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-xs-4">
+          <div id="card">
+            <img alt="" id="profile">
+          </div>
+
+        </div>
+        <div class="col-xs-4 ml-1">
+          <h5> <span class="badge badge-info" id="displayName"></span></h5>
+          <span id="statusMessage"></span>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="card mt-1 p-0">
+      <div id="map"></div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <form class="mt-3 mb-3" id="fieldForm">
+      <div class="form-group">
+        <span id="fieldList">
+          <label for="patient">ชื่อ-นามสกุล ผู้บาดเจ็บ:</label>
+          <input type="text" name='name[]' class="form-control" id="name">
+        </span>
+        <button id="addMore" class="btn btn-default pull-right"><i class="fa fa-plus"></i>&nbsp;
+          เพิ่มผู้บาดเจ็บรายอื่น</button>
+      </div>
+
+
+
+      <!-- <hr> -->
+
+      <div class="form-group">
+        <label for="location">ชื่อสถานที่:</label>
+        <input type="text" class="form-control" id="location" required>
+      </div>
+
+      <div class="form-group">
+        <label for="address">ที่อยู่:</label>
+        <input type="text" class="form-control" id="address" disabled>
+      </div>
+
+      <div class="form-group">
+        <label for="vehicle">ยานพาหนะคนเจ็บ/ผู้เสียชีวิต</label>
+        <select class="form-control" id="vehicle" required>
+          <option value="รถจักรยานยนต์">รถจักรยานยนต์</option>
+          <option value="รถจักรยาน">รถจักรยาน</option>
+          <option value="รถยนต์">รถเก๋ง</option>
+          <option value="รถโดยสาร">รถโดยสาร</option>
+          <option value="รถปิคอัพ">รถปิคอัพ</option>
+          <option value="รถบรรทุก">รถบรรทุก</option>
+          <option value="รถไฟ">รถไฟ</option>
+          <option value="รถตู้">รถตู้</option>
+          <option value="รถลากเข็น">รถลากเข็น</option>
+          <option value="อื่นๆ">อื่นๆ</option>
+        </select>
+      </div>
+
+      <div class="mt-1 mb-2">
+        <label for="img">ถ่ายภาพ</label> <br>
+        <div class="form-group">
+          <input type="file" accept="image/*" name="imgfile" id="imgfile">
+          <p></p>
+          <img src="" id="preview" width="250px">
+        </div>
+        <hr>
+        <button type="button" id="addData" class="btn btn-success" onclick="saveData()">ส่งข้อมูล</button>
+        <button type="button" id="refresh" class="btn btn-outline-info" onclick="refreshPage()">refresh</button>
+      </div>
+    </form>
+
+  </div>
+  <p></p>
+</body>
+<script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+<script src="app.js"></script>
+
+</html>
