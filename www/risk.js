@@ -67,6 +67,15 @@ function loadMap() {
     map.locate({ setView: true, watch: false, maxZoom: 16 });
 }
 
+var lc = L.control.locate({
+    position: 'topleft',
+    locateOptions: {
+        enableHighAccuracy: true,
+    }
+}).addTo(map);
+
+lc.start();
+
 var latlon;
 
 function onLocationFound(e) {

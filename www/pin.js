@@ -21,8 +21,8 @@ let map = L.map("map", {
   zoom: 13
 });
 let marker, gps, dataurl;
-const url = 'http://localhost:3100';
-// const url = "https://rti2dss.com:3100";
+// const url = 'http://localhost:3100';
+const url = "https://rti2dss.com:3100";
 
 function loadMap() {
   var mapbox = L.tileLayer(

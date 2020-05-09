@@ -14,7 +14,7 @@
 
 <body>
     <div class="container-fluid mt-2 mb-2">
-        <h2 style="font-weight: bold">เพิ่มจุดเสี่ยง</h2>
+        <h2 style="font-weight: bold">แจ้งจุดเสี่ยง</h2>
         ย้ายหมุดเพื่อเพิ่มตำแหน่งจุดเสี่ยง<br />
 
         <div id="map"></div>
@@ -40,15 +40,17 @@
                     <input type="text" class="form-control" id="sname" required>
                 </div>
                 <div class="form-group">
-                    <label for="type">ประเภท:</label>
+                    <label for="type">ลักษณะความเสี่ยง:</label>
                     <select class="form-control" id="stype" required>
-                        <option value="ร้ายแรง" selected>ร้ายแรง</option>
-                        <option value="ทางโค้ง">ทางโค้ง</option>
-                        <option value="หน้าวัด">หน้าวัด</option>
-                        <option value="หน้าโรงเรียน">หน้าโรงเรียน</option>
+                        <option value="ทางโค้ง" selected>ทางโค้ง</option>
                         <option value="ทางแยก">ทางแยก</option>
-                        <option value="U-Turn">U-Turn</option>
-                        <option value="อื่นๆ">อื่นๆ</option>
+                        <option value="ทางกลับรถ">ทางกลับรถ</option>
+                        <option value="ทางลาดชัน">ทางลาดชัน</option>
+                        <option value="เส้นทางชำรุด">เส้นทางชำรุด</option>
+                        <option value="ไม่มีป้ายสัญญาณเตือน">ไม่มีป้ายสัญญาณเตือน</option>
+                        <option value="ป้ายสัญญาณขัดข้อง">ป้ายสัญญาณขัดข้อง</option>
+                        <option value="มีวัสดุกีดขวางทาง">มีวัสดุกีดขวางทาง</option>
+                        <option value="รถจอดกีดขวางทาง">รถจอดกีดขวางทาง</option>
                     </select>
                 </div>
                 <div class="form-group">

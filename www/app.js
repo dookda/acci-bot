@@ -31,8 +31,8 @@ var map = L.map('map', {
     zoom: 13
 });
 var marker, gps, dataurl, tam, amp, pro, x, y;
-// var url = 'https://rti2dss.com:3100';
-var url = 'http://localhost:3100';
+var url = 'https://rti2dss.com:3100';
+// var url = 'http://localhost:3100';
 
 function loadMap() {
     var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -137,7 +137,7 @@ $("#addMore").click(function (e) {
 var lc = L.control.locate({
     position: 'topleft',
     strings: {
-        title: "Show me where I am, yo!"
+        title: ""
     },
     locateOptions: {
         enableHighAccuracy: true,

@@ -8,9 +8,8 @@ body {
     line-height: 1.72222;
 }
 
-#map{
-    /* position: absolute; */
-    height: 500px;
+#map {
+    height: 350px;
     width: 100%;
     /* border-radius: 10px; */
-}
+  }
