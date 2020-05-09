@@ -71,10 +71,8 @@ var latlon;
 
 function onLocationFound(e) {
     latlon = e.latlng;
-    console.log(e);
 
     getDisease(e.latitude, e.longitude)
-
     // map.setView(e.latlng, 16);
     // const icon = './img/marker.svg';
     // const iconMarker = L.icon({
