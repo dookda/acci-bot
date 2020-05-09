@@ -64,26 +64,17 @@ function loadMap() {
 
     map.on('locationfound', onLocationFound);
     map.on('locationerror', onLocationError);
-    map.locate({ setView: true, watch: true, maxZoom: 16 });
+    map.locate({ setView: true, watch: false, maxZoom: 16 });
 }
-
-var lc = L.control.locate({
-    position: 'topleft',
-    strings: {
-        title: "Show me where I am, yo!"
-    },
-    locateOptions: {
-        enableHighAccuracy: true
-    },
-    // setView: 'untilPanOrZoom'
-}).addTo(map);
-
-lc.start();
 
 var latlon;
 
 function onLocationFound(e) {
     latlon = e.latlng;
+    console.log(e);
+
+    getDisease(e.latitude, e.longitude)
+
     // map.setView(e.latlng, 16);
     // const icon = './img/marker.svg';
     // const iconMarker = L.icon({
@@ -148,9 +139,7 @@ function getDisease(lat, lon) {
                 if (feature.properties) {
                     layer.bindPopup(feature.properties.name);
                 }
-                var newDiv = $(`<div class="card bg-warning text-white mt-3">
-                    <div class="card-body">${feature.properties.name}</span></div>
-                </div>`);
+                var newDiv = $(`<h4><span class="badge badge-warning">${feature.properties.stype} ${feature.properties.sname}</span></h4>`);
                 console.log(feature.properties)
                 $('#items').append(newDiv);
             }

@@ -1,23 +1,8 @@
 const express = require('express');
 const app = express.Router();
-const Pool = require('pg').Pool
-
-const th = new Pool({
-    user: 'postgres',
-    host: '119.59.125.134',
-    database: 'th',
-    password: 'Pgis@rti2dss@2020',
-    port: 5432,
-});
-
-const ac = new Pool({
-    user: 'postgres',
-    host: '119.59.125.134',
-    database: 'accident',
-    password: 'Pgis@rti2dss@2020',
-    port: 5432,
-});
-
+const con = require("./db");
+const th = con.th;
+const ac = con.ac;
 
 app.get('/api/degree/:a/:b/:c', (req, res, next) => {
     const a = req.params.a;
@@ -39,7 +24,6 @@ app.get('/api/degree/:a/:b/:c', (req, res, next) => {
         });
     })
 })
-
 
 app.get('/acc-api/get', (req, res, next) => {
     const sql = `SELECT *, to_char(acc_date, 'DD TMMonth YYYY') as accdate FROM accident ORDER BY gid desc`;
@@ -366,6 +350,101 @@ app.get('/acc-api/riskpoint/:lat/:lon/:buff', (req, res, next) => {
         res.status(200).json({
             count: data.rowCount,
             data: geoJson
+        });
+    });
+});
+
+// pin api
+app.post("/acc-api/pin-insert", (req, res) => {
+    const { sname, stype, sdesc, img, geom } = req.body;
+    const pkid = "img" + Date.now();
+    const sql =
+        "INSERT INTO ud_riskpoint_4326 (sname, stype, sdesc, pkid, img, geom) " +
+        "VALUES ($1,$2,$3,$4,$5,ST_SetSRID(st_geomfromgeojson($6), 4326))";
+    const val = [sname, stype, sdesc, pkid, img, geom];
+    console.log(sql)
+    console.log(val);
+
+    ac.query(sql, val).then((r) => {
+        res.status(200).json({
+            status: "success",
+            message: "insert data"
+        });
+    });
+});
+
+app.post("/acc-api/pin-update", (req, res) => {
+    const { sname, stype, sdesc, img, geom, id } = req.body;
+    let sql, val;
+    if (img == "-") {
+        sql =
+            "UPDATE ud_riskpoint_4326 SET sname=$1,stype=$2,sdesc=$3," +
+            "geom=ST_SetSRID(st_geomfromgeojson($4), 4326) WHERE id=$6";
+        val = [sname, stype, sdesc, geom, id];
+    } else {
+        sql =
+            "UPDATE ud_riskpoint_4326 SET sname=$1,stype=$2,sdesc=$3,img=$4," +
+            "geom=ST_SetSRID(st_geomfromgeojson($5), 4326) WHERE id=$6";
+        val = [sname, stype, sdesc, img, geom, id];
+    }
+
+    // console.log(val)
+    ac.query(sql, val).then(() => {
+        res.status(200).json({
+            status: "success",
+            message: "insert data"
+        });
+    });
+});
+
+app.get("/acc-api/pin-getdata", (req, res) => {
+    const sql =
+        "SELECT id,sname,stype,sdesc,simg,pkid,img,st_x(geom) as lon,st_y(geom) as lat FROM ud_riskpoint_4326";
+    let jsonFeatures = [];
+    ac.query(sql).then(data => {
+        var rows = data.rows;
+        rows.forEach(e => {
+            // console.log(e.img)
+            let feature = {
+                type: "Feature",
+                properties: e,
+                geometry: {
+                    type: "Point",
+                    coordinates: [e.lon, e.lat]
+                }
+            };
+            jsonFeatures.push(feature);
+        });
+        let geoJson = {
+            type: "FeatureCollection",
+            features: jsonFeatures
+        };
+        res.status(200).json(geoJson);
+    });
+});
+
+app.get("/acc-api/pin-getimg/:id", (req, res) => {
+    const id = req.params.id;
+    const sql = "SELECT id,img FROM acc_img WHERE id = $1";
+    val = [id];
+    ac.query(sql, val).then(data => {
+        res.status(200).json({
+            status: "success",
+            message: "get disease",
+            data: data.rows
+        });
+    });
+});
+
+app.post("/acc-api/pin-delete", (req, res) => {
+    const { id } = req.body;
+    console.log(id);
+    const sql = "DELETE FROM ud_riskpoint_4326 WHERE id=$1";
+    const val = [id];
+    ac.query(sql, val).then(() => {
+        res.status(200).json({
+            status: "success",
+            message: "deleted data"
         });
     });
 });

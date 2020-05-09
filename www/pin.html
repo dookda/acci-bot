@@ -5,17 +5,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>COVID-19 supply survey</title>
+    <title>risk survey</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit&display=swap" />
-    <link rel="stylesheet" href="./dist/L.Control.MapCenterCoord.min.css">
-    <link rel="stylesheet" href="pin.css" />
+    <link rel="stylesheet" href="./pin.css" />
 </head>
 
 <body>
     <div class="container-fluid mt-2 mb-2">
-        <h2 style="font-weight: bold">จุดเสี่ยง</h2>
+        <h2 style="font-weight: bold">เพิ่มจุดเสี่ยง</h2>
         ย้ายหมุดเพื่อเพิ่มตำแหน่งจุดเสี่ยง<br />
 
         <div id="map"></div>
@@ -40,17 +39,18 @@
                 <div class="form-group">สถานที่</label>
                     <input type="text" class="form-control" id="sname" required>
                 </div>
-                <!-- <div class="form-group">
+                <div class="form-group">
                     <label for="type">ประเภท:</label>
                     <select class="form-control" id="stype" required>
-                        <option value="จุดตรวจ" selected>จุดตรวจ</option>
-                        <option value="สถานที่ปิดทำการ">สถานที่ปิดทำการ</option>
-                        <option value="หน้ากากและแอลกอฮอล์เจล">หน้ากากและแอลกอฮอล์เจล</option>
-                        <option value="แบ่งปันอาหารและเครื่องดื่ม">อาหารและเครื่องดื่ม</option>
-                        <option value="ที่พัก">ที่พัก</option>
-                        <option value="แบ่งปันอื่นๆ">แบ่งปันอื่นๆ</option>
+                        <option value="ร้ายแรง" selected>ร้ายแรง</option>
+                        <option value="ทางโค้ง">ทางโค้ง</option>
+                        <option value="หน้าวัด">หน้าวัด</option>
+                        <option value="หน้าโรงเรียน">หน้าโรงเรียน</option>
+                        <option value="ทางแยก">ทางแยก</option>
+                        <option value="U-Turn">U-Turn</option>
+                        <option value="อื่นๆ">อื่นๆ</option>
                     </select>
-                </div> -->
+                </div>
                 <div class="form-group">
                     <label for="desc">เพิ่มเติม</label>
                     <input type="text" class="form-control" id="sdesc" required>
@@ -62,11 +62,11 @@
                 </div>
                 <hr>
                 <button type="button" id="save" class="btn btn-success" onclick="insertData()">ส่งข้อมูล</button>
-                <button type="button" id="edit" class="btn btn-info" onclick="editData()">แก้ใขข้อมูล</button>
+                <a href="risk.html" id="edit" class="btn btn-info">ยกเลิก</a>
                 <!-- <button type="button" id="refresh" onclick="refreshPage()"
                             class="btn btn-outline-info">refresh</button>&nbsp; | -->
-                <button type="button" id="remove" onclick="deleteData()" class="btn btn-danger">ลบ
-                    marker</button>
+                <!-- <button type="button" id="remove" onclick="deleteData()" class="btn btn-danger">ลบ
+                    marker</button> -->
                 <br><span id="status"></span>
             </form>
         </div>
@@ -78,7 +78,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
-<script src="./dist/L.Control.MapCenterCoord.min.js"></script>
-<script src="pin.js"></script>
+<script src="./marker.js"></script>
+<script src="./pin.js"></script>
 
 </html>

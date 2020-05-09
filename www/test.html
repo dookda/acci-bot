@@ -2,42 +2,58 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>บันทึกข้อมูลอุบัติเหตุ</title>
+    <title>Center Position Control - Single lat/lng formatter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
+    <script
+        src="https://cdn.rawgit.com/davetroy/geohash-js/cffd38621a27505f471493229037205f282b4397/geohash.js"></script>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
 
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mitr&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit&display=swap">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
-    <link rel="stylesheet" href="style.css">
+        html,
+        body,
+        #map {
+            height: 50%;
+        }
+    </style>
 </head>
 
 <body>
 
-    <div class="p-0">
-        <div id="map"></div>
-    </div>
-    <div class="container-fluid">
+    <div id="map" class="map"></div>
 
+    <div id="center"></div>
+    <script>
+        var map = L.map('map').setView([43.0799, -79.0747], 9);
 
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
 
-    </div>
-    <p></p>
+        var d = {}
+        var img = 'data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMS4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQ5Ny44NjcgNDk3Ljg2NyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDk3Ljg2NyA0OTcuODY3OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjUxMnB4IiBoZWlnaHQ9IjUxMnB4Ij4KPGc+Cgk8Zz4KCQk8cGF0aCBkPSJNNDc3LjU0NiwyMjguNjE2aC01My41NjdjLTkuODI3LTgwLjAzNC03NC4wMTktMTQzLjYwOC0xNTQuNzE5LTE1My4xMzRWMjAuMzIxICAgIEMyNjkuMjU5LDkuMDk2LDI2MC4xNTUsMCwyNDguOTM4LDBjLTExLjIyNiwwLTIwLjMyMSw5LjA5Ni0yMC4zMjEsMjAuMzIxdjU0Ljk3NGMtODEuMzc1LDguOTQxLTE0Ni4yNTcsNzIuODA4LTE1Ni4xNSwxNTMuMzEzICAgIEgyMC4zMjFDOS4wOTYsMjI4LjYwOCwwLDIzNy43MDQsMCwyNDguOTI5czkuMDk2LDIwLjMyMSwyMC4zMjEsMjAuMzIxSDcyLjE5YzguOTksODEuNTEzLDc0LjMyOCwxNDYuNDI4LDE1Ni40MjYsMTU1LjQ1MXY1Mi44NDQgICAgYzAsMTEuMjI2LDkuMDk2LDIwLjMyMSwyMC4zMjEsMjAuMzIxYzExLjIxNywwLDIwLjMyMS05LjA5NiwyMC4zMjEtMjAuMzIxdi01My4wMjNjODEuNDE2LTkuNjA4LDE0Ni4wNTQtNzQuMjIyLDE1NC45OTYtMTU1LjI2NCAgICBoNTMuMjkxYzExLjIyNiwwLDIwLjMyMS05LjA5NiwyMC4zMjEtMjAuMzIxUzQ4OC43NzEsMjI4LjYxNiw0NzcuNTQ2LDIyOC42MTZ6IE0yNjkuMjU5LDM4My4zOTJ2LTY3LjAyOCAgICBjMC0xMS4yMjYtOS4xMDQtMjAuMzIxLTIwLjMyMS0yMC4zMjFjLTExLjIyNiwwLTIwLjMyMSw5LjA5Ni0yMC4zMjEsMjAuMzIxdjY3LjI0Yy01OS42MDctOC41NTEtMTA2Ljc1My01NS4yOTktMTE1LjMxMi0xMTQuMzQ1ICAgIGg2OC4yMDdjMTEuMjI2LDAsMjAuMzIxLTkuMDk2LDIwLjMyMS0yMC4zMjFzLTkuMDk2LTIwLjMyMS0yMC4zMjEtMjAuMzIxaC02Ny44ODJjOS4zOC01OC4wNDYsNTYuMTAzLTEwMy43NjEsMTE0Ljk4Ny0xMTIuMjE1ICAgIHY2NS4xMWMwLDExLjIyNiw5LjA5NiwyMC4zMjEsMjAuMzIxLDIwLjMyMWMxMS4yMTcsMCwyMC4zMjEtOS4wOTYsMjAuMzIxLTIwLjMyMXYtNjQuODk5ICAgIGM1OC4yMDksOC45ODIsMTA0LjI0OSw1NC40MjEsMTEzLjU1NiwxMTIuMDA0aC02Ni40NTljLTExLjIyNiwwLTIwLjMyMSw5LjA5Ni0yMC4zMjEsMjAuMzIxczkuMDk2LDIwLjMyMSwyMC4zMjEsMjAuMzIxaDY2Ljc5MyAgICBDMzc0LjY0NiwzMjcuODQyLDMyOC4xOTEsMzc0LjI5NywyNjkuMjU5LDM4My4zOTJ6IiBmaWxsPSIjMDAwMDAwIi8+Cgk8L2c+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==';
+
+        // Add in a crosshair for the map
+        var crosshairIcon = L.icon({
+            iconUrl: img,
+            iconSize: [20, 20], // size of the icon
+            iconAnchor: [10, 10], // point of the icon which will correspond to marker's location
+        });
+        crosshair = new L.marker(map.getCenter(), { icon: crosshairIcon, clickable: false });
+        crosshair.addTo(map);
+
+        // Move the crosshair to the center of the map when the user pans
+        map.on('move', function (e) {
+            crosshair.setLatLng(map.getCenter());
+        });
+
+        $('#center').text(formatPoint(map.getCenter(), '4326'));
+
+    </script>
 </body>
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
-<script src="test.js"></script>
 
 </html>
