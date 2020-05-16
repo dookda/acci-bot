@@ -6,9 +6,9 @@ $(document).ready(async () => {
 
     await liff.init({ liffId: "1654018081-pemA61EA" })
     liff.ready.then(async () => {
-        // if (!liff.isLoggedIn()) {
-        //     liff.login()
-        // }
+        if (!liff.isLoggedIn()) {
+            liff.login()
+        }
         await getUserid()
     })
     loadMap();

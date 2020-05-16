@@ -4,26 +4,6 @@ const con = require("./db");
 const th = con.th;
 const ac = con.ac;
 
-app.get('/api/degree/:a/:b/:c', (req, res, next) => {
-    const a = req.params.a;
-    const b = req.params.b;
-    const c = req.params.c;
-
-    const sql = `select degrees(ST_Angle(
-        ST_Point(${a}), 
-        ST_Point(${b}), 
-        ST_Point(${c})
-    )) as degree`;
-
-    ac.query(sql).then((data) => {
-        // res.send(JSON.stringify({
-        //     data: data.rows
-        // }));
-        res.status(200).json({
-            data: data.rows
-        });
-    })
-})
 
 app.get('/acc-api/get', (req, res, next) => {
     const sql = `SELECT *, to_char(acc_date, 'DD TMMonth YYYY') as accdate FROM accident ORDER BY gid desc`;
@@ -279,7 +259,7 @@ app.post('/acc-api/lineinsert', (req, res) => {
         })
 
     name.forEach(a => {
-        const nameSql = 'INSERT INTO acc_name (pkid,aname) VALUES ($1,$2)';
+        const nameSql = 'INSERT INTO acc_name (pkid,first_name) VALUES ($1,$2)';
         const nameVal = [pkid, a];
         ac.query(nameSql, nameVal)
             .then(() => {
@@ -356,12 +336,11 @@ app.get('/acc-api/riskpoint/:lat/:lon/:buff', (req, res, next) => {
 
 // pin api
 app.post("/acc-api/pin-insert", (req, res) => {
-    const { sname, stype, sdesc, img, geom } = req.body;
+    const { sname, stype, img, geom } = req.body;
     const pkid = "img" + Date.now();
-    const sql =
-        "INSERT INTO ud_riskpoint_4326 (sname, stype, sdesc, pkid, img, geom) " +
-        "VALUES ($1,$2,$3,$4,$5,ST_SetSRID(st_geomfromgeojson($6), 4326))";
-    const val = [sname, stype, sdesc, pkid, img, geom];
+    const sql = "INSERT INTO ud_riskpoint_4326 (sname, stype, pkid, img, date_notify, geom) " +
+        "VALUES ($1,$2,$3,$4,now(),ST_SetSRID(st_geomfromgeojson($5), 4326))";
+    const val = [sname, stype, pkid, img, geom];
     console.log(sql)
     console.log(val);
 
@@ -377,13 +356,11 @@ app.post("/acc-api/pin-update", (req, res) => {
     const { sname, stype, sdesc, img, geom, id } = req.body;
     let sql, val;
     if (img == "-") {
-        sql =
-            "UPDATE ud_riskpoint_4326 SET sname=$1,stype=$2,sdesc=$3," +
+        sql = "UPDATE ud_riskpoint_4326 SET sname=$1,stype=$2,sdesc=$3," +
             "geom=ST_SetSRID(st_geomfromgeojson($4), 4326) WHERE id=$6";
         val = [sname, stype, sdesc, geom, id];
     } else {
-        sql =
-            "UPDATE ud_riskpoint_4326 SET sname=$1,stype=$2,sdesc=$3,img=$4," +
+        sql = "UPDATE ud_riskpoint_4326 SET sname=$1,stype=$2,sdesc=$3,img=$4," +
             "geom=ST_SetSRID(st_geomfromgeojson($5), 4326) WHERE id=$6";
         val = [sname, stype, sdesc, img, geom, id];
     }
@@ -398,8 +375,7 @@ app.post("/acc-api/pin-update", (req, res) => {
 });
 
 app.get("/acc-api/pin-getdata", (req, res) => {
-    const sql =
-        "SELECT id,sname,stype,sdesc,simg,pkid,img,st_x(geom) as lon,st_y(geom) as lat FROM ud_riskpoint_4326";
+    const sql = "SELECT gid,sname,stype,sdesc,simg,pkid,img,st_x(geom) as lon,st_y(geom) as lat, status_fix, validation FROM ud_riskpoint_4326";
     let jsonFeatures = [];
     ac.query(sql).then(data => {
         var rows = data.rows;
@@ -420,6 +396,18 @@ app.get("/acc-api/pin-getdata", (req, res) => {
             features: jsonFeatures
         };
         res.status(200).json(geoJson);
+    });
+});
+
+app.get("/acc-api/pin-getdata/:gid", (req, res) => {
+    const gid = req.params.gid;
+    const sql = "SELECT * FROM ud_riskpoint_4326 WHERE gid=" + gid;
+
+    ac.query(sql).then(data => {
+        res.status(200).json({
+            status: "success",
+            data: data.rows
+        });
     });
 });
 
@@ -447,6 +435,208 @@ app.post("/acc-api/pin-delete", (req, res) => {
             message: "deleted data"
         });
     });
+});
+
+app.post('/acc-api/pin-risk-solve', (req, res) => {
+    let { validation, status_fix, date_fix, gid } = req.body;
+    let sql = 'UPDATE ud_riskpoint_4326 SET validation=$1, status_fix=$2, date_fix=$3 WHERE gid=$4';
+    let val = [validation, status_fix, date_fix, gid]
+    ac.query(sql, val).then(() => {
+        res.status(200).json({
+            status: "success",
+            message: "updated data"
+        });
+    })
+})
+
+
+app.post('/acc-api/pin-risk-remove', (req, res) => {
+    let { gid } = req.body;
+    // console.log(gid)
+    const sql = 'DELETE FROM ud_riskpoint_4326 WHERE gid=$1';
+    const val = [gid];
+
+    ac.query(sql, val).then(() => {
+        res.status(200).json({
+            status: "success",
+            message: "delete data"
+        });
+    })
+})
+
+// new form
+app.post('/acc-api/forminsert', async (req, res) => {
+    const { acc_place, acc_date, acc_time, pro, amp, tam, x, y, vehicle, disputant, to_hospital, transfer_type, img, arrObj } = req.body;
+    // console.log(req.body)
+    let acc_date_edit = acc_date == '' ? null : acc_date;
+    let acc_time_edit = acc_time == '' ? null : acc_time;
+    let x_edit = Number(x);
+    let y_edit = Number(y);
+
+    const pkid = 'pid' + Date.now();
+    const sql = 'INSERT INTO acc_info (acc_place, acc_date, acc_time, pro, amp, tam, x, y, vehicle, disputant, to_hospital, transfer_type, pkid, geom) ' +
+        'VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,ST_SetSRID(ST_MakePoint($8, $7), 4326))';
+    const val = [acc_place, acc_date_edit, acc_time_edit, pro, amp, tam, x_edit, y_edit, vehicle, disputant, to_hospital, transfer_type, pkid];
+
+    await ac.query(sql, val).then(() => {
+        console.log('acc_info ok')
+    })
+
+    await arrObj.forEach(a => {
+        let death_date_edit = a.death_date == '' ? null : a.death_date;
+        let death_time_edit = a.death_time == '' ? null : a.death_time;
+        let age_edit = Number(a.age);
+        const nameSql = 'INSERT INTO acc_name (pkid,title_name, first_name, last_name, type, id_card, age, sex, p_place, injury_type, alcohol, behaviour, death_info, death_date, death_time) ' +
+            'VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)';
+        const nameVal = [pkid, a.title_name, a.first_name, a.last_name, a.type, a.id_card, age_edit, a.sex, a.p_place, a.injury_type, a.alcohol, a.behaviour, a.death_info, death_date_edit, death_time_edit];
+        // console.log(nameSql)
+        ac.query(nameSql, nameVal).then(() => {
+            console.log('acc_name ok')
+        })
+    })
+
+    const imgSql = 'INSERT INTO acc_img (pkid,img) VALUES ($1,$2)';
+    const imgVal = [pkid, img];
+    await ac.query(imgSql, imgVal).then(() => {
+        console.log('acc_img ok')
+        res.status(200).json({
+            status: 'success',
+            message: 'insert data'
+        });
+    })
+});
+
+app.post('/acc-api/formupdate', async (req, res) => {
+    const { acc_place, acc_date, acc_time, pro, amp, tam, x, y, vehicle, disputant, to_hospital, transfer_type, pkid, arrObj } = req.body;
+    // console.log(req.body)
+    let acc_date_edit = acc_date == '' ? null : acc_date;
+    let acc_time_edit = acc_time == '' ? null : acc_time;
+    let x_edit = Number(x);
+    let y_edit = Number(y);
+
+    const sql = 'UPDATE acc_info SET acc_place=$1, acc_date=$2, acc_time=$3,' +
+        'pro=$4, amp=$5, tam=$6, x=$7, y=$8, vehicle=$9, disputant=$10,' +
+        'to_hospital=$11, transfer_type=$12, geom=ST_SetSRID(ST_MakePoint($8, $7), 4326)' +
+        'WHERE pkid=$13;'
+
+    const val = [acc_place, acc_date_edit, acc_time_edit, pro, amp, tam, x_edit, y_edit, vehicle, disputant, to_hospital, transfer_type, pkid];
+
+    await ac.query(sql, val).then(() => {
+        res.status(200).json({
+            status: 'success',
+            message: 'insert data'
+        });
+    })
+
+    await arrObj.forEach(a => {
+        let death_date_edit = a.death_date == '' ? null : a.death_date;
+        let death_time_edit = a.death_time == '' ? null : a.death_time;
+        let age_edit = Number(a.age);
+
+        const nameSql = 'UPDATE acc_name SET title_name=$1, first_name=$2, last_name=$3,' +
+            'type=$4, id_card=$5, age=$6, sex=$7, p_place=$8, injury_type=$9, alcohol=$10,' +
+            'behaviour=$11, death_info=$12, death_date=$13, death_time=$14' +
+            'WHERE pkid=$15 AND gid=$16;'
+
+        const nameVal = [a.title_name, a.first_name, a.last_name, a.type, a.id_card, age_edit, a.sex, a.p_place, a.injury_type, a.alcohol, a.behaviour, a.death_info, death_date_edit, death_time_edit, pkid, a.gid];
+        // console.log(nameSql)
+        ac.query(nameSql, nameVal).then(() => {
+            console.log('acc_name ok')
+        })
+    })
+});
+
+app.get("/acc-api/get-acc-info-geojson", (req, res) => {
+    const sql = "SELECT gid, pkid, acc_place, acc_date, acc_time, pro, amp, tam, x, y, vehicle, st_x(geom) as lon,st_y(geom) as lat FROM acc_info";
+    let jsonFeatures = [];
+    ac.query(sql).then(data => {
+        var rows = data.rows;
+        rows.forEach(e => {
+            // console.log(e.img)
+            let feature = {
+                type: "Feature",
+                properties: e,
+                geometry: {
+                    type: "Point",
+                    coordinates: [e.lon, e.lat]
+                }
+            };
+            jsonFeatures.push(feature);
+        });
+        let geoJson = {
+            type: "FeatureCollection",
+            features: jsonFeatures
+        };
+        res.status(200).json(geoJson);
+    });
+});
+
+app.get('/acc-api/get-acc-info', (req, res) => {
+    const sql = "SELECT * FROM acc_info ORDER BY gid DESC";
+    ac.query(sql).then(data => {
+        res.status(200).json({
+            data: data.rows
+        });
+    });
+})
+
+app.get('/acc-api/get-acc-info/:pkid', (req, res) => {
+    let pkid = req.params.pkid;
+    const sql = `SELECT * FROM acc_info WHERE pkid = '${pkid}' ORDER BY gid DESC`;
+    ac.query(sql).then(data => {
+        res.status(200).json({
+            data: data.rows
+        });
+    });
+})
+
+app.get('/acc-api/get-acc-name/:pkid', (req, res) => {
+    let pkid = req.params.pkid;
+    const sql = `SELECT * FROM acc_name WHERE pkid = '${pkid}' ORDER BY gid DESC`;
+    ac.query(sql).then(data => {
+        res.status(200).json({
+            data: data.rows
+        });
+    });
+})
+
+app.get('/acc-api/get-acc-img/:pkid', (req, res) => {
+    let pkid = req.params.pkid;
+    const sql = `SELECT * FROM acc_img WHERE pkid = '${pkid}' ORDER BY gid DESC`;
+    ac.query(sql).then(data => {
+        res.status(200).json({
+            data: data.rows
+        });
+    });
+})
+
+app.post('/acc-api/formremove', async (req, res) => {
+    const { pkid } = req.body;
+
+    const sql = 'DELETE FROM acc_info WHERE pkid=$1';
+    const val = [pkid];
+
+    await ac.query(sql, val).then(() => {
+        console.log('acc_info ok')
+    })
+
+    const nameSql = 'DELETE FROM acc_name WHERE pkid=$1';
+    const nameVal = [pkid];
+
+    await ac.query(nameSql, nameVal).then(() => {
+        console.log('acc_name ok')
+    })
+
+    const imgSql = 'DELETE FROM acc_img WHERE pkid=$1';
+    const imgVal = [pkid];
+
+    await ac.query(imgSql, imgVal).then(() => {
+        console.log('acc_img ok')
+        res.status(200).json({
+            status: 'success',
+            message: 'delete data'
+        });
+    })
 });
 
 module.exports = app;

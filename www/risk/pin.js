@@ -1,15 +1,7 @@
 let userid;
 $(document).ready(async function () {
-  //   await liff.init({ liffId: "1653987548-eakD174y" });
-
-  //   const profile = await liff.getProfile();
-  //   userid = profile.userId;
-
-  //   alert(userid);
-
-  //   getAccount();
+  // await liff.init({ liffId: "1653987548-eakD174y" });
   loadMap();
-  // getData();
 });
 
 let latlng = {
@@ -92,23 +84,6 @@ function changeLatlng() {
   });
 }
 
-// var img = 'data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMS4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQ5Ny44NjcgNDk3Ljg2NyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDk3Ljg2NyA0OTcuODY3OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjUxMnB4IiBoZWlnaHQ9IjUxMnB4Ij4KPGc+Cgk8Zz4KCQk8cGF0aCBkPSJNNDc3LjU0NiwyMjguNjE2aC01My41NjdjLTkuODI3LTgwLjAzNC03NC4wMTktMTQzLjYwOC0xNTQuNzE5LTE1My4xMzRWMjAuMzIxICAgIEMyNjkuMjU5LDkuMDk2LDI2MC4xNTUsMCwyNDguOTM4LDBjLTExLjIyNiwwLTIwLjMyMSw5LjA5Ni0yMC4zMjEsMjAuMzIxdjU0Ljk3NGMtODEuMzc1LDguOTQxLTE0Ni4yNTcsNzIuODA4LTE1Ni4xNSwxNTMuMzEzICAgIEgyMC4zMjFDOS4wOTYsMjI4LjYwOCwwLDIzNy43MDQsMCwyNDguOTI5czkuMDk2LDIwLjMyMSwyMC4zMjEsMjAuMzIxSDcyLjE5YzguOTksODEuNTEzLDc0LjMyOCwxNDYuNDI4LDE1Ni40MjYsMTU1LjQ1MXY1Mi44NDQgICAgYzAsMTEuMjI2LDkuMDk2LDIwLjMyMSwyMC4zMjEsMjAuMzIxYzExLjIxNywwLDIwLjMyMS05LjA5NiwyMC4zMjEtMjAuMzIxdi01My4wMjNjODEuNDE2LTkuNjA4LDE0Ni4wNTQtNzQuMjIyLDE1NC45OTYtMTU1LjI2NCAgICBoNTMuMjkxYzExLjIyNiwwLDIwLjMyMS05LjA5NiwyMC4zMjEtMjAuMzIxUzQ4OC43NzEsMjI4LjYxNiw0NzcuNTQ2LDIyOC42MTZ6IE0yNjkuMjU5LDM4My4zOTJ2LTY3LjAyOCAgICBjMC0xMS4yMjYtOS4xMDQtMjAuMzIxLTIwLjMyMS0yMC4zMjFjLTExLjIyNiwwLTIwLjMyMSw5LjA5Ni0yMC4zMjEsMjAuMzIxdjY3LjI0Yy01OS42MDctOC41NTEtMTA2Ljc1My01NS4yOTktMTE1LjMxMi0xMTQuMzQ1ICAgIGg2OC4yMDdjMTEuMjI2LDAsMjAuMzIxLTkuMDk2LDIwLjMyMS0yMC4zMjFzLTkuMDk2LTIwLjMyMS0yMC4zMjEtMjAuMzIxaC02Ny44ODJjOS4zOC01OC4wNDYsNTYuMTAzLTEwMy43NjEsMTE0Ljk4Ny0xMTIuMjE1ICAgIHY2NS4xMWMwLDExLjIyNiw5LjA5NiwyMC4zMjEsMjAuMzIxLDIwLjMyMWMxMS4yMTcsMCwyMC4zMjEtOS4wOTYsMjAuMzIxLTIwLjMyMXYtNjQuODk5ICAgIGM1OC4yMDksOC45ODIsMTA0LjI0OSw1NC40MjEsMTEzLjU1NiwxMTIuMDA0aC02Ni40NTljLTExLjIyNiwwLTIwLjMyMSw5LjA5Ni0yMC4zMjEsMjAuMzIxczkuMDk2LDIwLjMyMSwyMC4zMjEsMjAuMzIxaDY2Ljc5MyAgICBDMzc0LjY0NiwzMjcuODQyLDMyOC4xOTEsMzc0LjI5NywyNjkuMjU5LDM4My4zOTJ6IiBmaWxsPSIjMDAwMDAwIi8+Cgk8L2c+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==';
-
-// var crosshairIcon = L.icon({
-//   iconUrl: img,
-//   iconSize: [20, 20],
-//   iconAnchor: [10, 10],
-// });
-
-// crosshair = new L.marker(map.getCenter(), { icon: crosshairIcon, clickable: false });
-// crosshair.addTo(map);
-
-// map.on('move', function (e) {
-//   crosshair.setLatLng(map.getCenter());
-// });
-
-// $('#center').text(formatPoint(map.getCenter(), '4326'));
-
 function onLocationError(e) {
   console.log(e.message);
 }
@@ -126,20 +101,13 @@ async function getData() {
   await $.get(url + "/acc-api/pin-getdata", res => {
     marker = L.geoJSON(res, {
       pointToLayer: (feature, latlng) => {
-        let icon;
-        if (feature.properties.stype == "จุดตรวจ") {
-          icon = policeStop;
-        } else if (feature.properties.stype == "ด่านชุมชน") {
-          icon = localStop;
-        } else if (feature.properties.stype == "จุดเสี่ยง") {
-          icon = riskPoint;
-        } else {
-          icon = other;
-        }
 
+        const icon = './img/caution.svg';
         const iconMarker = L.icon({
           iconUrl: icon,
-          iconSize: [40, 40]
+          iconSize: [30, 30],
+          iconAnchor: [15, 20],
+          popupAnchor: [5, -36]
         });
         return L.marker(latlng, {
           icon: iconMarker,
@@ -215,51 +183,22 @@ function insertData() {
   const obj = {
     sname: $("#sname").val(),
     stype: $("#stype").val(),
-    sdesc: $("#sdesc").val(),
+    status_fix: "ยังไม่ได้รับการแก้ไข",
+    validation: "ยังไม่ได้รับการตรวจสอบ",
     img: dataurl,
     geom: JSON.stringify(gps.toGeoJSON().geometry)
   };
-  console.log(obj)
-  $.post(url + "/acc-api/pin-insert", obj).done(res => {
 
-    getData();
+  $.post(url + "/acc-api/pin-insert", obj).done(res => {
+    console.log(obj)
+    // getData();
     dataurl = null;
     $("form :input").val("");
     $("#preview").attr("src", "");
     $("#status").empty().text("");
+    window.close();
   });
   return false;
-}
-
-function editData() {
-  dataurl ? dataurl : (dataurl = "-");
-  const obj = {
-    sname: $("#sname").val(),
-    stype: $("#stype").val(),
-    sdesc: $("#sdesc").val(),
-    img: dataurl,
-    geom: pos.geom,
-    id: pos.id
-  };
-  $.post(url + "/acc-api/pin-update", obj, res => {
-    getData();
-    $("form :input").val("");
-    $("#preview").attr("src", "");
-    $("#status").empty().text("");
-  });
-  return false;
-}
-
-function deleteData() {
-  const obj = {
-    id: pos.id
-  };
-  $.post(url + "/acc-api/pin-delete", obj, res => {
-    getData();
-    $("form :input").val("");
-    $("#preview").attr("src", "");
-    $("#status").empty().text("");
-  });
 }
 
 function refreshPage() {
@@ -311,7 +250,7 @@ function resize() {
         var ctx = canvas.getContext("2d");
         ctx.drawImage(img, 0, 0, width, height);
         dataurl = canvas.toDataURL(file.type);
-        // console.log(dataurl)
+
         // document.getElementById('output').src = dataurl;
       };
       reader.readAsDataURL(file);

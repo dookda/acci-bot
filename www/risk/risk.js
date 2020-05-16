@@ -1,9 +1,17 @@
+
 $(document).ready(function () {
     loadMap();
-
 })
 
-var map = L.map('map').setView([14.114433, 101.079177], 8);
+let latlng = {
+    lat: 16.820378,
+    lng: 100.265787
+};
+let map = L.map("map", {
+    center: latlng,
+    zoom: 13
+});
+
 var marker;
 
 function loadMap() {
@@ -64,7 +72,7 @@ function loadMap() {
 
     map.on('locationfound', onLocationFound);
     map.on('locationerror', onLocationError);
-    map.locate({ setView: true, watch: false, maxZoom: 16 });
+    // map.locate({ setView: true, watch: false, maxZoom: 16 });
 }
 
 var lc = L.control.locate({
@@ -79,36 +87,10 @@ lc.start();
 var latlon;
 
 function onLocationFound(e) {
+    console.log(e)
     latlon = e.latlng;
-
     getDisease(e.latitude, e.longitude)
-    // map.setView(e.latlng, 16);
-    // const icon = './img/marker.svg';
-    // const iconMarker = L.icon({
-    //     iconUrl: icon,
-    //     iconSize: [35, 35],
-    //     iconAnchor: [12, 37],
-    //     popupAnchor: [5, -36]
-    // });
-    // marker = L.marker(e.latlng, {
-    //     icon: iconMarker, draggable: true
-    // });
-    // marker.addTo(map).bindPopup("คุณอยู่ที่นี่").openPopup();
-    // getDisease(latlon.lat, latlon.lng);
-    // marker.on('dragend', (e) => {
-    //     latlon = {
-    //         lat: e.target._latlng.lat,
-    //         lon: e.target._latlng.lng
-    //     };
-    //     map.panTo(e.target._latlng);
-    //     getDisease(latlon.lat, latlon.lon);
-    // })
 }
-
-$('#getBuffer').change(e => {
-    console.log(latlon)
-    getDisease(latlon.lat, latlon.lng)
-})
 
 function onLocationError(e) {
     console.log(e.message);
@@ -117,7 +99,7 @@ function onLocationError(e) {
 function getDisease(lat, lon) {
     var point = L.layerGroup();
     var buff = 1000;
-    const icon = './img/caution.svg';
+    const icon = './../img/caution.svg';
     const iconMarker = L.icon({
         iconUrl: icon,
         iconSize: [30, 30],
@@ -147,7 +129,7 @@ function getDisease(lat, lon) {
                     layer.bindPopup(feature.properties.name);
                 }
                 var newDiv = $(`<h4><span class="badge badge-warning">${feature.properties.stype} ${feature.properties.sname}</span></h4>`);
-                console.log(feature.properties)
+                // console.log(feature.properties)
                 $('#items').append(newDiv);
             }
         });
@@ -157,14 +139,6 @@ function getDisease(lat, lon) {
 
     // layerControl.addOverlay(point.addTo(map), 'จุดเสี่ยงในรัศมี 2 กม.');
 }
-
-
-
-
-
-$("#radius").change(() => {
-    getDisease(latlon.lat, latlon.lon);
-})
 
 
 
