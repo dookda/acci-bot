@@ -547,7 +547,7 @@ app.post('/acc-api/formupdate', async (req, res) => {
 });
 
 app.get("/acc-api/get-acc-info-geojson", (req, res) => {
-    const sql = "SELECT gid, pkid, acc_place, acc_date, acc_time, pro, amp, tam, x, y, vehicle, st_x(geom) as lon,st_y(geom) as lat FROM acc_info";
+    const sql = "SELECT gid, pkid, acc_place, acc_date, acc_time, pro, amp, tam, x, y, vehicle, st_x(geom) as lon,st_y(geom) as lat FROM acc_info ORDER BY acc_date DESC";
     let jsonFeatures = [];
     ac.query(sql).then(data => {
         var rows = data.rows;

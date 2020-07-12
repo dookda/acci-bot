@@ -462,13 +462,22 @@ let lngLat = { lng: 100.265787, lat: 16.820378 }
 document.getElementById("x").value = lngLat.lat;
 document.getElementById("y").value = lngLat.lng;
 
+// var map = new mapboxgl.Map({
+//     container: 'map',
+//     style: 'mapbox://styles/mapbox/streets-v9',
+//     center: lngLat,
+//     zoom: 12
+
+// });
+
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v9',
+    zoom: 9,
+    // center: [137.915, 36.259],
     center: lngLat,
-    zoom: 12
-
+    style: 'mapbox://styles/mapbox/satellite-v9'
 });
+
 var marker;
 marker = new mapboxgl.Marker()
     .setLngLat(lngLat)
