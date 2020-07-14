@@ -1,8 +1,8 @@
 "use strict"
 
 
-const url = 'https://rti2dss.com:3100';
-// const url = 'http://localhost:3100'
+// const url = 'https://rti2dss.com:3100';
+const url = 'http://localhost:3100'
 $(document).ready(function () {
     loadMap();
 
@@ -85,11 +85,12 @@ function loadMap() {
 
     $.get(url + '/acc-api/get-acc-info-geojson').done(res => {
         // console.log(res)
+        getArr(res)
         const redMarker = L.icon({
             iconUrl: './marker/marker-red.svg',
             iconSize: [30, 30],
             // iconAnchor: [15, 20],
-            popupAnchor: [0, -10]
+            popupAnchor: [0, -7]
         });
 
         let fix = 0
@@ -126,8 +127,13 @@ function loadMap() {
     })
 }
 
+function getArr(a) {
+    console.log(a)
+
+}
+
 function zoomCenter(lat, lon, aplace, adate) {
-    var popup = L.popup({ offset: [0, -10] })
+    var popup = L.popup({ offset: [0, -7] })
         .setLatLng([lat, lon])
         .setContent('สถานที่: ' + aplace + '<br>วันที่: ' + adate);
     popup.openOn(map)
@@ -225,13 +231,13 @@ $('input[type="checkbox"]').click(function () {
 
 var options = {
     series: [{
-        name: 'Net Profit',
+        name: 'ตำแหน่งจุดเสี่ยงที่ได้รับรายงาน',
         data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
     }, {
-        name: 'Revenue',
+        name: 'ตำแหน่งจุดเสี่ยงที่ได้รับการแก้ใข',
         data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
     }, {
-        name: 'Free Cash Flow',
+        name: 'ตำแหน่งจุดเสี่ยงที่ยังไม่ได้รับการแก้ใข',
         data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
     }],
     chart: {

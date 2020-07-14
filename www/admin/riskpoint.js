@@ -1,8 +1,8 @@
 "use strict"
 
 
-const url = 'https://rti2dss.com:3100';
-// const url = 'http://localhost:3100';
+// const url = 'https://rti2dss.com:3100';
+const url = 'http://localhost:3100';
 $(document).ready(async function () {
     loadMap();
 
@@ -121,14 +121,14 @@ function getData() {
             iconUrl: './marker/marker-red.svg',
             iconSize: [30, 30],
             // iconAnchor: [15, 20],
-            popupAnchor: [0, -10]
+            popupAnchor: [0, -7]
         });
         const greenMarker = L.icon({
             iconUrl: './marker/marker-green.svg',
             iconSize: [30, 30],
             // iconAnchor: [15, 20],
             // iconAnchor: [22, 94],
-            popupAnchor: [0, -10]
+            popupAnchor: [0, -7]
         });
         let fix = 0
         let notfix = 0
@@ -178,7 +178,7 @@ function remove() {
 }
 
 function zoomCenter(lat, lon, sname, stype) {
-    var popup = L.popup({ offset: [0, -10] })
+    var popup = L.popup({ offset: [0, -7] })
         .setLatLng([lat, lon])
         .setContent('สถานที่: ' + sname + '<br>ประเภท: ' + stype);
     popup.openOn(map)
