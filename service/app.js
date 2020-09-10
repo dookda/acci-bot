@@ -374,10 +374,15 @@ app.post("/acc-api/pin-update", (req, res) => {
     });
 });
 
-app.get("/acc-api/pin-getdata", (req, res) => {
-    const sql = "SELECT gid,sname,stype,sdesc,simg,pkid,img,st_x(geom) as lon,st_y(geom) as lat, status_fix, validation FROM ud_riskpoint_4326";
+app.post("/acc-api/pin-getdata", (req, res) => {
+    const { start, end } = req.body;
+    console.log(start, end)
+    const sql = `SELECT gid,tam_code, tname, aname, pvname, sname,stype,sdesc,simg,pkid,img,date_notify,
+    st_x(geom) as lon,st_y(geom) as lat, status_fix, validation 
+    FROM ud_riskpoint_4326_v WHERE date_notify between $1 and $2`;
+    let val = [start, end]
     let jsonFeatures = [];
-    ac.query(sql).then(data => {
+    ac.query(sql, val).then(data => {
         var rows = data.rows;
         rows.forEach(e => {
             // console.log(e.img)
@@ -396,6 +401,40 @@ app.get("/acc-api/pin-getdata", (req, res) => {
             features: jsonFeatures
         };
         res.status(200).json(geoJson);
+    });
+});
+
+app.post("/acc-api/pin-getdata-sum-tam", (req, res) => {
+    const { start, end } = req.body;
+    console.log(start, end)
+    const sql = `SELECT concat('ต.', tname, ' อ.', aname) as place,  count(gid) as cnt
+    FROM ud_riskpoint_4326_v
+    WHERE date_notify BETWEEN $1 AND $2
+    GROUP BY tname, aname
+    ORDER BY aname`;
+    let val = [start, end]
+    ac.query(sql, val).then(data => {
+        res.status(200).json({
+            status: 'success',
+            data: data.rows
+        });
+    });
+});
+
+app.post("/acc-api/pin-getdata-sum-amp", (req, res) => {
+    const { start, end } = req.body;
+    console.log(start, end)
+    const sql = `SELECT concat('อ.', aname) as place,  count(gid) as cnt
+    FROM ud_riskpoint_4326_v
+    WHERE date_notify BETWEEN $1 AND $2
+    GROUP BY aname
+    ORDER BY aname`;
+    let val = [start, end]
+    ac.query(sql, val).then(data => {
+        res.status(200).json({
+            status: 'success',
+            data: data.rows
+        });
     });
 });
 
@@ -539,17 +578,22 @@ app.post('/acc-api/formupdate', async (req, res) => {
             'WHERE pkid=$15 AND gid=$16;'
 
         const nameVal = [a.title_name, a.first_name, a.last_name, a.type, a.id_card, age_edit, a.sex, a.p_place, a.injury_type, a.alcohol, a.behaviour, a.death_info, death_date_edit, death_time_edit, pkid, a.gid];
-        // console.log(nameSql)
         ac.query(nameSql, nameVal).then(() => {
             console.log('acc_name ok')
         })
     })
 });
 
-app.get("/acc-api/get-acc-info-geojson", (req, res) => {
-    const sql = "SELECT gid, pkid, acc_place, acc_date, acc_time, pro, amp, tam, x, y, vehicle, st_x(geom) as lon,st_y(geom) as lat FROM acc_info ORDER BY acc_date DESC";
+app.get("/acc-api/get-acc-info-geojson/:start/:end", (req, res) => {
+    let start = req.params.start;
+    let end = req.params.end;
+    // console.log(start, end)
+    const sql = `SELECT gid, pkid, acc_place, to_char(acc_date, 'yyyy') as yyyy, 
+                acc_date, acc_time, pro, amp, tam, x, y, vehicle, st_x(geom) as lon,st_y(geom) as lat 
+                FROM acc_info WHERE acc_date between $1 and $2 ORDER BY acc_date DESC`;
+    let val = [start, end]
     let jsonFeatures = [];
-    ac.query(sql).then(data => {
+    ac.query(sql, val).then(data => {
         var rows = data.rows;
         rows.forEach(e => {
             // console.log(e.img)

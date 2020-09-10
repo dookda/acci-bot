@@ -1,8 +1,8 @@
 "use strict"
 
 
-// const url = 'https://rti2dss.com:3100';
-const url = 'http://localhost:3100';
+const url = 'https://rti2dss.com:3100';
+// const url = 'http://localhost:3100';
 $(document).ready(async function () {
     loadMap();
 
@@ -15,7 +15,7 @@ $(document).ready(async function () {
             gid: $('#gid').val()
         }
         $.post(url + '/acc-api/pin-risk-solve', obj).done(res => {
-            console.log(res)
+            // console.log(res)
             // getData()
         })
     })
@@ -33,10 +33,22 @@ $(document).ready(async function () {
         }
 
         $.post(url + '/acc-api/pin-risk-remove', obj).done(res => {
-            console.log(res);
+            // console.log(res);
             getData()
         })
     })
+
+    var now = new Date();
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var start = (now.getFullYear() - 3) + "-" + (month) + "-" + (day);
+    var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+    // $('#datePicker').val(today);
+    $("#dateStart").val(start)
+    $("#dateEnd").val(today)
+    getDate()
 })
 
 let latlng = {
@@ -104,18 +116,38 @@ function loadMap() {
 
     layerControl = L.control.layers(baseMap, overlay).addTo(map);
 
-    getData()
-
+    // getData()
     // layerControl.addOverlay(riskpoint.addTo(map), 'จุดเสี่ยง');
 }
+let dateStart;
+let dateEnd;
+function getDate() {
+    dateStart = $("#dateStart").val()
+    dateEnd = $("#dateEnd").val()
+    // console.log(dateStart, dateEnd)
+    getData(dateStart, dateEnd)
+    getSummary(dateStart, dateEnd)
+}
 
-function getData() {
+function rmLyr() {
+    map.eachLayer((lyr) => {
+        if (lyr.options.lyr == 'acc') {
+            map.removeLayer(lyr);
+            // console.log(lyr);
+        }
+    });
+}
+
+function getData(dateStart, dateEnd) {
+    rmLyr()
     $("#riskList").empty()
     $('#saveEdit').prop('disabled', true)
     $('#validation').prop('disabled', true)
     $('#status_fix').prop('disabled', true)
     $('#remove').prop('disabled', true)
-    $.get(url + '/acc-api/pin-getdata').done(res => {
+
+    let mkArr = []
+    $.post(url + '/acc-api/pin-getdata', { start: dateStart, end: dateEnd }).done(res => {
         // console.log(res)
         const redMarker = L.icon({
             iconUrl: './marker/marker-red.svg',
@@ -136,45 +168,78 @@ function getData() {
         let invalid = 0
         let fixStat;
         let validStat;
-        riskpoint = L.geoJSON(res, {
-            pointToLayer: function (feature, latlng) {
-                let icon = feature.properties.status_fix == "แก้ไขแล้ว" ? greenMarker : redMarker
-                return L.marker(latlng, {
-                    icon: icon,
-                    iconName: 'risk',
-                    attribute: feature.properties
-                });
-            },
-            onEachFeature: (feature, layer) => {
-                // console.log(feature);
-                feature.properties.status_fix == "แก้ไขแล้ว" ? notfix += 1 : fix += 1
-                feature.properties.status_fix == "แก้ไขแล้ว" ? fixStat = '<span class="badge badge-success">แก้ใขแล้ว</span>' : fixStat = ''
-                feature.properties.validation == "ตรวจสอบแล้ว" ? invalid += 1 : valid += 1
-                feature.properties.validation == "ตรวจสอบแล้ว" ? validStat = '<span class="badge badge-warning">ตรวจสอบแล้ว</span>' : validStat = ''
-                // document.getElementById("cntTotal").text = layer.length;
 
-                $("#riskList").append(`<a class="list-group-item list-group-item-action"
-                    onclick="zoomCenter(${feature.properties.lat},${feature.properties.lon},'${feature.properties.sname}','${feature.properties.stype}');
-                    showDetail(${feature.properties.gid})">
-                    จุดเสี่ยง: ${feature.properties.sname} ${validStat} ${fixStat}<br>
-                    ประเภท: ${feature.properties.stype} </a>`);
-                layer.bindPopup('จุดเสี่ยง: ' + feature.properties.sname + '<br>ประเภท: ' + feature.properties.stype);
-            }
-        }).addTo(map);
+        res.features.map(x => {
+            // console.log(x)
+            let latlng = [x.geometry.coordinates[1], x.geometry.coordinates[0]]
+            let icon = x.properties.status_fix == "แก้ไขแล้ว" ? greenMarker : redMarker
+            let a = L.marker(latlng, {
+                icon: icon,
+                lyr: 'acc'
+            }).bindPopup('สถานที่: ' + x.properties.acc_place + '<br>วันที่: ' + x.properties.acc_date);
+            mkArr.push(a)
+            // cnt += 1
+
+            x.properties.status_fix == "แก้ไขแล้ว" ? fix += 1 : notfix += 1
+            x.properties.status_fix == "แก้ไขแล้ว" ? fixStat = '<span class="badge badge-success">แก้ใขแล้ว</span>' : fixStat = ''
+            x.properties.validation == "ตรวจสอบแล้ว" ? valid += 1 : invalid += 1
+            x.properties.validation == "ตรวจสอบแล้ว" ? validStat = '<span class="badge badge-warning">ตรวจสอบแล้ว</span>' : validStat = ''
+
+            $("#riskList").append(`<a class="list-group-item list-group-item-action"
+                    onclick="zoomCenter(${x.properties.lat},${x.properties.lon},'${x.properties.sname}','${x.properties.stype}');
+                    showDetail(${x.properties.gid})">
+                    จุดเสี่ยง: ${x.properties.sname} ${validStat} ${fixStat}<br>
+                    ประเภท: ${x.properties.stype} </a>`);
+            a.bindPopup('จุดเสี่ยง: ' + x.properties.sname + '<br>ประเภท: ' + x.properties.stype);
+        })
+
+        L.featureGroup(mkArr).addTo(map)
+
         $('#fix').text('' + fix)
+        $('#notfix').text('' + notfix)
         $('#riskall').text('' + Number(notfix + fix))
         $('#valid').text('' + valid)
         $('#invalid').text('' + invalid)
     })
 }
 
+function getSummary(dateStart, dateEnd) {
+    let obj = { start: dateStart, end: dateEnd }
+
+    let pieData = [];
+    let barCat = [];
+    let barDat = [];
+
+    $.post(url + "/acc-api/pin-getdata-sum-amp", obj).done(res => {
+        // console.log(res)
+        res.data.map(x => {
+            pieData.push({ name: x.place, y: Number(x.cnt) });
+        })
+        pieChart(pieData)
+    })
+
+    $.post(url + "/acc-api/pin-getdata-sum-tam", obj).done(res => {
+        // console.log(res)
+        res.data.map(x => {
+            barCat.push(x.place);
+            barDat.push(Number(x.cnt));
+        })
+        barChart(barCat, barDat)
+    })
+
+    // console.log(pieData, barCat, barDat)
+
+    // pieChart(pieData)
+    // barChart(barCat, barDat)
+}
+
 function remove() {
-    console.log(layerControl)
+    // console.log(layerControl)
     if (riskpoint) {
         map.removeLayer(riskpoint)
     }
     $("#riskList").empty()
-    getData()
+    getDate()
 }
 
 function zoomCenter(lat, lon, sname, stype) {
@@ -186,6 +251,7 @@ function zoomCenter(lat, lon, sname, stype) {
 }
 
 function showDetail(gid) {
+    $("#editModal").modal();
     // console.log(gid);
     $('#saveEdit').prop('disabled', false)
     $('#validation').prop('disabled', false)
@@ -216,69 +282,92 @@ function formatDate(d) {
     return now.getFullYear() + "-" + (month) + "-" + (day);
 }
 
-var latlon;
-function getDisease(lat, lon) {
-    var point = L.layerGroup();
-    var buff = 1000;
-    const icon = './../img/caution.svg';
-    const iconMarker = L.icon({
-        iconUrl: icon,
-        iconSize: [30, 30],
-        iconAnchor: [15, 20],
-        popupAnchor: [5, -36]
-    });
-    map.eachLayer((lyr) => {
-        if (lyr.options.iconName == 'risk') {
-            map.removeLayer(lyr);
-        }
-    });
-    $.get(url + '/acc-api/riskpoint/' + lat + '/' + lon + '/' + buff, (res) => {
-        $('#sumpoint').text('พบจุดเสี่ยงใกล้คุณ ' + res.count + ' จุด');
-        $('#items').empty();
-        // console.log(res)
-        let marker = L.geoJSON(res.data, {
-            pointToLayer: function (feature, latlng) {
-                return L.marker(latlng, {
-                    icon: iconMarker,
-                    iconName: 'risk',
-                    attribute: feature.properties
-                });
-            },
-            onEachFeature: (feature, layer) => {
-                if (feature.properties) {
-                    layer.bindPopup(feature.properties.name);
-                }
-                var newDiv = $(`<h4><span class="badge badge-warning">${feature.properties.stype} ${feature.properties.sname}</span></h4>`);
-                // console.log(feature.properties)
-                $('#items').append(newDiv);
-            }
-        });
-        marker.addTo(point);
-        point.addTo(map);
-    })
+// $('input[type="checkbox"]').click(function () {
+//     if ($(this).prop("checked") == true) {
 
-    // layerControl.addOverlay(point.addTo(map), 'จุดเสี่ยงในรัศมี 2 กม.');
+//         map.eachLayer((lyr) => {
+//             console.log(lyr)
+//             // if (lyr.options.iconName == 'risk') {
+//             //     map.removeLayer(lyr);
+//             // }
+//         });
+
+//         console.log("Checkbox is checked.");
+//     }
+//     else if ($(this).prop("checked") == false) {
+//         console.log("Checkbox is unchecked.");
+//     }
+// });
+
+
+function pieChart(pieData) {
+    Highcharts.chart('chartAmp', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'จำนวนจุดเสี่ยงแต่ละอำเภอ'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                }
+            }
+        },
+        series: [{
+            name: 'Brands',
+            colorByPoint: true,
+            data: pieData
+        }]
+    });
 }
 
-$('input[type="checkbox"]').click(function () {
-    if ($(this).prop("checked") == true) {
-
-        map.eachLayer((lyr) => {
-            console.log(lyr)
-            // if (lyr.options.iconName == 'risk') {
-            //     map.removeLayer(lyr);
-            // }
-        });
-
-        console.log("Checkbox is checked.");
-    }
-    else if ($(this).prop("checked") == false) {
-        console.log("Checkbox is unchecked.");
-    }
-});
-
-
-
+function barChart(barCat, barDat) {
+    Highcharts.chart('chartTam', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'จำนวนจุดเสี่ยงรายตำบล'
+        },
+        xAxis: {
+            categories: barCat
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'จำนวนจุดเสี่ยง'
+            }
+        },
+        legend: {
+            reversed: true
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+            name: 'จุดเสี่ยง',
+            data: barDat
+        }]
+    });
+}
 
 
 

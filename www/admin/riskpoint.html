@@ -46,8 +46,33 @@
 
     <div class="container-fluid mt-2 mb-1">
         <div class="jumbotron">
-            รายการจุดเสี่ยงที่ถูกรายงานทั้งหมด <span id="riskall"></span> แห่ง ได้รับการแก้ไขแล้ว <span id="fix">
-            </span> แห่ง
+            <!-- <label for="dateStart">กำหนดวันที่ค้นหาการเกิดอุบัติเหตุ</label> -->
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="dateStart">ค้นหาตั้งแต่วันที่</label>
+                        <input type="date" class="form-control" id="dateStart">
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="dateEnd">ถึงวันที่</label>
+                        <input type="date" class="form-control" id="dateEnd">
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+
+                        <p></p>
+                        <!-- <span class="badge badge-primary f16">พบจุดการเกิดอุบัติเหตุที่ถูกรายงานจำนวน <span
+                                id="riskall"></span>
+                            แห่ง</span> -->
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-info" onclick="getDate()">ค้นหา</button>
+            <!-- <hr> -->
+
         </div>
         <div class="row">
             <div class="col-sm-4">
@@ -62,6 +87,32 @@
             </div>
             <div class="col-sm-4">
                 <div class="p-3 fx">
+                    รายการจุดเสี่ยงที่ถูกรายงานทั้งหมด <span id="riskall" class="badge badge-warning"></span> แห่ง
+                    <br> ได้รับการแก้ไขแล้ว <span id="fix" class="badge badge-success"></span> แห่ง
+                    <br> ยังไม่ได้รับการแก้ไข <span id="notfix" class="badge badge-danger"></span> แห่ง
+                    <hr>
+                    <div id="chartAmp"></div>
+
+                    <div id="chartTam"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
                     <form>
                         <img src="" alt="" height="100" id='risk_image'>
                         <input id="gid" name="gid" type="hidden">
@@ -95,10 +146,13 @@
                             ลบ</button>
                     </form>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
         </div>
     </div>
-
 
     <!-- Modal -->
 
@@ -109,6 +163,7 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.3/locale/th.min.js"></script> -->
     <!-- <script src="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.js"></script> -->
     <!-- <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script> -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="./riskpoint.js"></script>
 
 

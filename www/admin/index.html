@@ -47,53 +47,47 @@
     <div class="container-fluid mt-2 mb-1">
 
         <div class="jumbotron">
-            รายการจุดเกิดเหตุที่ถูกรายงาน <span id="riskall"></span> แห่ง
+
+            <label for="dateStart">กำหนดวันที่ค้นหาการเกิดอุบัติเหตุ</label>
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="dateStart">ตั้งแต่วันที่</label>
+                        <input type="date" class="form-control" id="dateStart">
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="dateEnd">ถึงวันที่</label>
+                        <input type="date" class="form-control" id="dateEnd">
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+
+                        <button class="btn btn-info" onclick="getDate()">ค้นหา</button>
+                        <p></p>
+                        <span class="badge badge-primary f16">พบจุดการเกิดอุบัติเหตุที่ถูกรายงานจำนวน <span
+                                id="riskall"></span>
+                            แห่ง</span>
+                    </div>
+                </div>
+            </div>
+            <!-- <hr> -->
+
+
         </div>
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-lg-4 col-sm-12">
                 <div id="map"></div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-lg-4 col-sm-12">
                 <div class="list-group list-group-flush fx" id="riskList"></div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-lg-4 col-sm-12">
                 <div id="chart"></div>
             </div>
-            <!-- <div class="col-sm-4">
-                <div class="p-3 fx">
-                    <form>
-                        <img src="" alt="" height="100" id='risk_image'>
-                        <input id="gid" name="gid" type="hidden">
-                        <div class="form-group">
-                            <label for="to_hospital">วันที่รับแจ้ง</label>
-                            <input type="date" class="form-control inp" id="date_notify" readonly />
-                        </div>
-                        <div class="form-group">
-                            <label for="to_hospital">ตรวจสอบเบื้องต้น</label>
-                            <select class="form-control inp" id="validation" required>
-                                <option value=""></option>
-                                <option value="ตรวจสอบแล้ว">ตรวจสอบแล้ว</option>
-                                <option value="ยังไม่ได้รับการตรวจสอบ">ยังไม่ได้รับการตรวจสอบ</option>
-                            </select>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="to_hospital">สถานะการแก้ไข</label>
-                            <select class="form-control inp" id="status_fix" required>
-                                <option value=""></option>
-                                <option value="แก้ไขแล้ว">แก้ไขแล้ว</option>
-                                <option value="ยังไม่ได้รับการแก้ไข">ยังไม่ได้รับการแก้ไข</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="to_hospital">วันที่แก้ไข</label>
-                            <input type="date" class="form-control inp" id="date_fix" required />
-                        </div>
-                        <button type="submit" class="btn btn-info" id='saveEdit'><i class='bx bxs-save'></i>&nbsp;
-                            บันทึก</button>
-                    </form>
-                </div>
-            </div> -->
         </div>
     </div>
 
@@ -104,7 +98,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="./index.js"></script>
 
 

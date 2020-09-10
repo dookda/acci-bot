@@ -21,6 +21,13 @@ html, body {
 #map{
     height: 70vh; 
     width: 100%;
+    border-radius: 5px;
+}
+
+#chart{
+    height: 70vh; 
+    width: 100%;
+    border-radius: 5px;
 }
 
 .jumbotron {
@@ -38,6 +45,9 @@ html, body {
     background-color:rgb(238, 238, 238);
 }
 
+.f16{
+font-size: 16px;
+}
 
 
 
