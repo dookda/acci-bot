@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit&display=swap" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="./dashboard.css">
 </head>
 
@@ -17,7 +19,7 @@
             <h5>สำรวจร้านขายสุรา-บุหรี่</h5>
             แบบสำรวจร้านขายสุรา-บุหรี่
         </div>
-        <table id="myTable" class="table table-striped table-bordered" style="width:100%">
+        <table id="myTable" class="table table-striped table-bordered " style="width:100%">
             <thead>
                 <tr>
                     <th>ชื่อร้าน/ที่อยู่</th>
@@ -30,7 +32,12 @@
                 </tr>
             </thead>
         </table>
+        <p></p>
+        <p></p>
+        <div class="jumbotron mt-5">
+        </div>
     </div>
+
 
     <!-- Modal -->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -66,10 +73,18 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="vehicle">สถานะ</label>
+                        <select class="form-control" id="status" required>
+                            <option value="ดำเนินกิจการอยู่">ดำเนินกิจการอยู่</option>
+                            <option value="ปิดกิจการ">ปิดกิจการ</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label>แผนที่</label>
                         <div id="map"></div>
                     </div>
                     <div class="form-group">
+                        <label>รูปภาพ</label> <br>
                         <img src="" id="img" width="350px">
                     </div>
                 </div>
@@ -78,6 +93,23 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div id="deleteModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>ลบข้อมูลสำเร็จ!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="reloadTable()"><i
+                            class="bi bi-x-circle"></i>&nbsp;ปิด</button>
+                </div>
+            </div>
+
         </div>
     </div>
 

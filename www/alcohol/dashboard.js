@@ -19,10 +19,13 @@ $(document).ready(function () {
             {
                 data: null, render: function (data, type, row, meta) {
                     // console.log(row);
-                    return `<button type="button" 
-                        class="btn btn-warning" 
-                        onclick="setValue(${row.gid},'${row.rname}','${row.sname}','${row.stype}','${row.tel}', ${row.lat}, ${row.lon})">แก้ไขข้อมูล</button>`
-                }
+                    return `<button type="button" class="btn btn-warning p-1 m-1" 
+                        onclick="setValue(${row.gid},'${row.rname}','${row.sname}','${row.stype}','${row.tel}', '${row.status}', ${row.lat}, ${row.lon})">
+                        <i class="bi bi-journal-richtext"></i>&nbsp;แก้ไขข้อมูล</button>
+                        <button type="button" class="btn btn-danger p-1 m-1" onclick="delData(${row.gid})">
+                        <i class="bi bi-x-circle"></i>&nbsp;ลบข้อมูล</button>`
+                },
+                width: "15%"
             }
         ],
     });
@@ -76,12 +79,8 @@ function loadMap() {
 }
 loadMap();
 
-function setValue(gid, rname, sname, stype, tel, lat, lon) {
+function setValue(gid, rname, sname, stype, tel, status, lat, lon) {
     gid = gid
-    $("#editModal").modal("show")
-    $('#editModal').on('shown.bs.modal', function () {
-        map.invalidateSize();
-    });
 
     map.eachLayer((lyr) => {
         if (lyr.options.name == 'marker') {
@@ -96,11 +95,17 @@ function setValue(gid, rname, sname, stype, tel, lat, lon) {
     $("#sname").val(sname);
     $("#stype").val(stype);
     $("#tel").val(tel);
+    $("#status").val(tel);
 
     $.post(url + "/acc-api/alcohol-getimg", { gid: gid }).done(r => {
-        console.log(r);
+        // console.log(r);
         $("#img").attr('src', r.data[0].img)
     })
+
+    $("#editModal").modal("show")
+    $('#editModal').on('shown.bs.modal', function () {
+        map.invalidateSize();
+    });
 }
 
 function updateData() {
@@ -110,6 +115,7 @@ function updateData() {
         sname: $("#sname").val(),
         stype: $("#stype").val(),
         tel: $("#tel").val(),
+        status: $("#status").val(),
         // img: dataurl,
         // geom: JSON.stringify(marker.toGeoJSON().geometry)
     };
@@ -120,6 +126,16 @@ function updateData() {
         $('#myTable').DataTable().ajax.reload();
     });
     return false;
+}
+
+function delData(gid) {
+    $.post(url + "/acc-api/alcohol-delete", { gid: gid }).done(r => {
+        $("#deleteModal").modal("show");
+    })
+}
+
+function reloadTable() {
+    $('#myTable').DataTable().ajax.reload();
 }
 
 

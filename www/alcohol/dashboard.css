@@ -1,14 +1,18 @@
 body {
-    padding: 0;
-    margin: 0;
+    font-family: "Kanit", sans-serif;
 }
+
 html, body {
     width: 100%;
     height: 100%;
 }
 
 #map { 
-    height: 200px;
+    height: 300px;
+}
+
+.mb-20{
+    margin-bottom: 20px;
 }
 
 /* .modal {

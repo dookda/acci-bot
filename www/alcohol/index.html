@@ -11,14 +11,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit&display=swap" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="./pin.css" />
 </head>
 
 <body>
 
     <div class="container-fluid mt-2 mb-1">
-        <h2 style="font-weight: bold">ร้านขายแอลกอฮอล์</h2>
-        สำรวจพิกัดร้านขายเครื่องดื่มแอลกอฮอล์ ทำความผิด พรบ.<br />
+        <h5>สำรวจร้านขายสุรา-บุหรี่</h5>
+        แบบสำรวจร้านขายสุรา-บุหรี่<br />
     </div>
 
     <div id="map"></div>
@@ -39,7 +40,7 @@
                 </div>
             </div>
         </div> -->
-        <div class="form-group">ชื่อร้าน</label>
+        <div class="form-group">ชื่อร้าน/ที่อยู่</label>
             <input type="text" class="form-control" id="rname" required>
         </div>
         <div class="form-group">ชื่อเจ้าของ</label>
@@ -72,8 +73,11 @@
             <img src="" id="preview" width="250px">
         </div>
         <hr>
-        <a id="save" class="btn btn-success" onclick="insertData()">ส่งข้อมูล</a>
-        <a href="./index.html" id="edit" class="btn btn-info">ยกเลิก</a>
+        <a id="save" class="btn btn-success" onclick="insertData()"><i class="bi bi-journal-arrow-up"></i>&nbsp;
+            ส่งข้อมูล</a>
+        <a href="./index.html" id="edit" class="btn btn-warning"><i class="bi bi-arrow-repeat"></i>&nbsp;ยกเลิก</a>
+        <a href="./dashboard.html" id="edit" class="btn btn-info"><i
+                class="bi bi-clipboard-data"></i>&nbsp;หน้ารายงาน</a>
         <br><span id="statusupload"></span>
         <p></p>
         <p></p>

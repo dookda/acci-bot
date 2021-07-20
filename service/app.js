@@ -702,12 +702,12 @@ app.post("/acc-api/alcohol-insert", (req, res) => {
 });
 
 app.post("/acc-api/alcohol-update", (req, res) => {
-    const { gid, rname, sname, stype, tel } = req.body;
+    const { gid, rname, sname, stype, tel, status } = req.body;
 
     const sql = `UPDATE ud_alcohol_4326 
-        SET rname='${rname}',sname='${sname}',stype='${stype}',tel='${tel}',date_notify=now()
+        SET rname='${rname}',sname='${sname}',stype='${stype}',tel='${tel}', status='${status}',date_notify=now()
         WHERE gid=${gid} `;
-    console.log(sql);
+    // console.log(sql);
     ac.query(sql).then((r) => {
         res.status(200).json({
             status: "success",
@@ -717,7 +717,7 @@ app.post("/acc-api/alcohol-update", (req, res) => {
 });
 
 app.get('/acc-api/alcohol-get', (req, res) => {
-    const sql = `SELECT gid, rname, sname, stype, tel, date_notify,
+    const sql = `SELECT gid, rname, sname, stype, tel, status, TO_CHAR(date_notify, 'DD Mon YYYY') as date_notify,
             st_x(geom) as lon, st_y(geom) as lat 
             FROM ud_alcohol_4326 ORDER BY date_notify DESC`;
     ac.query(sql).then(data => {
@@ -733,6 +733,16 @@ app.post('/acc-api/alcohol-getimg', (req, res) => {
     ac.query(sql).then(data => {
         res.status(200).json({
             data: data.rows
+        });
+    });
+})
+
+app.post('/acc-api/alcohol-delete', (req, res) => {
+    const { gid } = req.body;
+    const sql = `DELETE FROM ud_alcohol_4326 WHERE gid=${gid}`;
+    ac.query(sql).then(data => {
+        res.status(200).json({
+            data: "success"
         });
     });
 })
