@@ -1,7 +1,7 @@
 let marker;
 var table;
-// const url = "https://rti2dss.com:3100";
-const url = "http://localhost:3100";
+const url = "https://rti2dss.com:3100";
+// const url = "http://localhost:3100";
 
 $(document).ready(function () {
     table = $('#myTable').DataTable({
