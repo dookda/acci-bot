@@ -1,0 +1,32 @@
+body {
+  font-family: "Kanit", sans-serif;
+}
+
+h{
+  font-family: "Kanit", sans-serif;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color:#d6dae4;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+#map {
+  height: 60vh;
+  width: 100%;
+  /* border-radius: 10px; */
+}
+
+.mb2 {
+  margin-bottom: 2em;
+}
+
+.ver{
+  font-size: 10px;
+}

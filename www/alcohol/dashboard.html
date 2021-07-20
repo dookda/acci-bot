@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>alcohol</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="./dashboard.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron mt-5">
+            <h5>สำรวจร้านขายสุรา-บุหรี่</h5>
+            แบบสำรวจร้านขายสุรา-บุหรี่
+        </div>
+        <table id="myTable" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ชื่อร้าน/ที่อยู่</th>
+                    <th>ชื่อเจ้าของ</th>
+                    <th>ประเภทสินค้า</th>
+                    <th>เบอร์ติดต่อ</th>
+                    <th>วันที่สำรวจ</th>
+                    <th>สถานะ</th>
+                    <th>dashboard</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="gid">
+                    <div class="form-group">
+                        <label>ชื่อร้าน</label>
+                        <input type="text" class="form-control" id="rname" required>
+                    </div>
+                    <div class="form-group">
+                        <label>ชื่อเจ้าของ</label>
+                        <input type="text" class="form-control" id="sname" required>
+                    </div>
+                    <div class="form-group">
+                        <label>เบอร์โทร</label>
+                        <input type="text" class="form-control" id="tel" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="vehicle">ประเภทร้าน</label>
+                        <select class="form-control" id="stype" required>
+                            <option value="เหล้า">เหล้า</option>
+                            <option value="บุหรี">บุหรี</option>
+                            <option value="เหล้าและบุหรี่">เหล้าและบุหรี่</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>แผนที่</label>
+                        <div id="map"></div>
+                    </div>
+                    <div class="form-group">
+                        <img src="" id="img" width="350px">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="updateData()">ตกลง</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="./dashboard.js"></script>
+
+</html>

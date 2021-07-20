@@ -37,7 +37,7 @@ $(document).ready(function () {
     });
 
     // overelay
-    const pro = L.tileLayer.wms("http://rti2dss.com:8080/geoserver/th/wms?", {
+    const pro = L.tileLayer.wms("https://rti2dss.com:8443/geoserver/th/wms?", {
         layers: 'th:province_4326',
         format: 'image/png',
         transparent: true,
@@ -46,7 +46,7 @@ $(document).ready(function () {
         lyr: 'basemap'
     });
 
-    const amp = L.tileLayer.wms('http://rti2dss.com:8080/geoserver/th/wms?', {
+    const amp = L.tileLayer.wms('https://rti2dss.com:8443/geoserver/th/wms?', {
         layers: 'th:amphoe_4326',
         format: 'image/png',
         transparent: true,
@@ -55,7 +55,7 @@ $(document).ready(function () {
         lyr: 'basemap'
     });
 
-    const tam = L.tileLayer.wms('http://rti2dss.com:8080/geoserver/th/wms?', {
+    const tam = L.tileLayer.wms('https://rti2dss.com:8443/geoserver/th/wms?', {
         layers: 'th:tambon_4326',
         format: 'image/png',
         transparent: true,

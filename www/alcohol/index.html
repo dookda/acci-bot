@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>แอลกอฮอล์</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit&display=swap" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+    <link rel="stylesheet" href="./pin.css" />
+</head>
+
+<body>
+
+    <div class="container-fluid mt-2 mb-1">
+        <h2 style="font-weight: bold">ร้านขายแอลกอฮอล์</h2>
+        สำรวจพิกัดร้านขายเครื่องดื่มแอลกอฮอล์ ทำความผิด พรบ.<br />
+    </div>
+
+    <div id="map"></div>
+
+    <div class="container-fluid mt-2 mb-6">
+
+        <!-- <div class="row p-0">
+            <div class="col-6 ">
+                <div class="form-group">
+                    <label for="place">ละติจูด</label>
+                    <input type="number" step="0.001" class="form-control" id="lat" onchange="changeLatlng()">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="place">ลองจิจูด</label>
+                    <input type="number" step="0.001" class="form-control" id="lng" onchange="changeLatlng()">
+                </div>
+            </div>
+        </div> -->
+        <div class="form-group">ชื่อร้าน</label>
+            <input type="text" class="form-control" id="rname" required>
+        </div>
+        <div class="form-group">ชื่อเจ้าของ</label>
+            <input type="text" class="form-control" id="sname" required>
+        </div>
+        <div class="form-group">เบอร์โทร</label>
+            <input type="text" class="form-control" id="tel" required>
+        </div>
+
+        <div class="form-group">
+            <label for="vehicle">ประเภทร้าน</label>
+            <select class="form-control" id="stype" required>
+                <option value="เหล้า">เหล้า</option>
+                <option value="บุหรี">บุหรี</option>
+                <option value="เหล้าและบุหรี่">เหล้าและบุหรี่</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="vehicle">สถานะ</label>
+            <select class="form-control" id="status" required>
+                <option value="ดำเนินกิจการอยู่">ดำเนินกิจการอยู่</option>
+                <option value="ปิดกิจการ">ปิดกิจการ</option>
+            </select>
+        </div>
+
+        <label for="img">รูปภาพ</label>
+        <div class="form-group">
+            <input type="file" accept="image/*" name="imgfile" id="imgfile">
+            <img src="" id="preview" width="250px">
+        </div>
+        <hr>
+        <a id="save" class="btn btn-success" onclick="insertData()">ส่งข้อมูล</a>
+        <a href="./index.html" id="edit" class="btn btn-info">ยกเลิก</a>
+        <br><span id="statusupload"></span>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p> <span class="ver">updated 21-12-2020</span></p>
+
+
+
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+<!-- <script src="./marker.js"></script> -->
+<script src="./pin.js"></script>
+
+</html>

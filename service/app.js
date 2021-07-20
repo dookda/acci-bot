@@ -683,6 +683,58 @@ app.post('/acc-api/formremove', async (req, res) => {
     })
 });
 
+app.post("/acc-api/alcohol-insert", (req, res) => {
+    const { rname, sname, stype, tel, img, geom } = req.body;
 
+    const pkid = "img" + Date.now();
+    const sql = "INSERT INTO ud_alcohol_4326 (rname, sname, stype, tel, pkid, img, date_notify, geom) " +
+        "VALUES ($1,$2,$3,$4,$5,$6,now(),ST_SetSRID(st_geomfromgeojson($7), 4326))";
+    const val = [rname, sname, stype, tel, pkid, img, geom];
+    // console.log(sql)
+    // console.log(val);
+
+    ac.query(sql, val).then((r) => {
+        res.status(200).json({
+            status: "success",
+            message: "insert data"
+        });
+    });
+});
+
+app.post("/acc-api/alcohol-update", (req, res) => {
+    const { gid, rname, sname, stype, tel } = req.body;
+
+    const sql = `UPDATE ud_alcohol_4326 
+        SET rname='${rname}',sname='${sname}',stype='${stype}',tel='${tel}',date_notify=now()
+        WHERE gid=${gid} `;
+    console.log(sql);
+    ac.query(sql).then((r) => {
+        res.status(200).json({
+            status: "success",
+            message: "insert data"
+        });
+    });
+});
+
+app.get('/acc-api/alcohol-get', (req, res) => {
+    const sql = `SELECT gid, rname, sname, stype, tel, date_notify,
+            st_x(geom) as lon, st_y(geom) as lat 
+            FROM ud_alcohol_4326 ORDER BY date_notify DESC`;
+    ac.query(sql).then(data => {
+        res.status(200).json({
+            data: data.rows
+        });
+    });
+})
+
+app.post('/acc-api/alcohol-getimg', (req, res) => {
+    const { gid } = req.body;
+    const sql = `SELECT img FROM ud_alcohol_4326 WHERE gid=${gid}`;
+    ac.query(sql).then(data => {
+        res.status(200).json({
+            data: data.rows
+        });
+    });
+})
 
 module.exports = app;

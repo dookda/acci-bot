@@ -1,3 +1,20 @@
+
+<?php
+    header('Content-Type: text/html; charset=utf-8');
+    header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Credentials: true");
+    header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+    session_start();   
+
+    if (!$_SESSION["UserID"]) {
+        Header("Location: form_login.php");
+    }else{
+        print "<script>var usr = '" . $_SESSION['UserID'] . "'</script>";
+
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +27,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
     <!-- <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet" /> -->
-    <!-- <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"> -->
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="./riskpoint.css">
 </head>
 
@@ -26,13 +43,13 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item ">
-                    <a class="nav-link" href="index.html">รายงานการเกิดอุบัติเหตุ</a>
+                    <a class="nav-link" href="index.php">รายงานการเกิดอุบัติเหตุ</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="report.html">เพิ่ม/แก้ไขข้อมูล</a>
+                    <a class="nav-link" href="report.php">เพิ่ม/แก้ไขข้อมูล</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="riskpoint.html">รายงานจุดเสี่ยง</a>
+                    <a class="nav-link" href="riskpoint.php">รายงานจุดเสี่ยง</a>
                 </li>
                 <!-- <li class="nav-item">
                     <a class="nav-link" href="#">Pricing</a>
@@ -40,6 +57,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">About</a>
                 </li> -->
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" >ผู้ใช้งาน: <span id="usr"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="logout.php">ออกจากระบบ</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -165,6 +190,9 @@
     <!-- <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script> -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="./riskpoint.js"></script>
+    <script>
+       $('#usr').text(usr);
+    </script>
 
 
 </body>

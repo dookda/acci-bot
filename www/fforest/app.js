@@ -12,9 +12,9 @@ $(document).ready(async () => {
 
 var userId;
 async function getUserid() {
-    const profile = await liff.getProfile();
-    console.log(profile)
-    userId = await profile.userId;
+    // const profile = await liff.getProfile();
+    // console.log(profile)
+    // userId = await profile.userId;
 
     $('#profile').attr('src', await profile.pictureUrl);
     // $('#userId').text(profile.userId);
@@ -27,7 +27,7 @@ var map = L.map('map', {
     zoom: 13
 });
 var marker, gps, dataurl, tam, amp, pro, x, y;
-var url = 'https://rti2dss.com:3100';
+// var url = 'https://rti2dss.com:3100';
 // var url = 'http://localhost:3100';
 
 function loadMap() {
@@ -63,10 +63,10 @@ function onLocationFound(e) {
     x = e.latlng.lat;
     y = e.latlng.lng;
     gps = L.marker(e.latlng, { draggable: true });
-    // gps.addTo(map).bindPopup("คุณอยู่ที่นี่").openPopup();
-    // gps.on('dragend', (e) => {
-    //     console.log(e)
-    // })
+    gps.addTo(map).bindPopup("คุณอยู่ที่นี่").openPopup();
+    gps.on('dragend', (e) => {
+        console.log(e)
+    })
     $.get(url + `/acc-api/getaddress/${x}/${y}`).done((res) => {
         tam = res.data[0].tam_name;
         amp = res.data[0].amp_name;
@@ -124,8 +124,17 @@ $("#addMore").click(function (e) {
     i += 1;
     console.log(e)
     e.preventDefault();
-    $("#fieldList").append(`<br><label for="patient">ชื่อ ผู้บาดเจ็บรายที่ ${i}:</label>
-    <input type="text" name="name[]" class="form-control" />`);
+    $("#fieldList").append(`
+        <hr>
+        <div class="form-group">
+            <label for="patient">พืชชนิดที่ ${i}:</label>
+            <input type="text" name="name[]" class="form-control" />
+            <label for="location">วันที่เริ่มปลูก:</label>
+            <input type="date" class="form-control" id="location" required>
+            <label for="address">จำนวน:</label>
+            <input type="number" class="form-control" id="address">
+        </div>
+    `);
 });
 
 var lc = L.control.locate({
@@ -177,3 +186,7 @@ function saveData() {
 function closed() {
     // liff.closeWindow();
 }
+
+$.get("http://tgms.dgr.go.th/entries/poi-stations?keyword=&fbclid=IwAR08to6yCa3UiQs5OR4oeRf0CZQCBC5XaYxXy3tuk6ZSiycg7ZZcNU5jUvg").done(r => {
+    console.log(r);
+})

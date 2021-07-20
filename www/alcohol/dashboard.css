@@ -1,0 +1,22 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+#map { 
+    height: 200px;
+}
+
+/* .modal {
+    visibility: hidden;
+    display: block;
+  }
+  
+  .modal[aria-hidden='false'] {
+    visibility: visible;
+    display: block;
+  } */
