@@ -25,9 +25,10 @@ $(document).ready(function () {
                         <button type="button" class="btn btn-danger p-1 m-1" onclick="delData(${row.gid})">
                         <i class="bi bi-x-circle"></i>&nbsp;ลบข้อมูล</button>`
                 },
-                width: "15%"
-            }
+                // width: "15%"
+            },
         ],
+        "scrollX": true
     });
 })
 
