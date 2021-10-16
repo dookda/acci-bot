@@ -6,6 +6,8 @@ $(document).ready(function () {
         zoomControl: false
     });
 
+    let url = "https://rti2dss.com:8443"
+
     var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -37,7 +39,7 @@ $(document).ready(function () {
     });
 
     // overelay
-    const pro = L.tileLayer.wms("https://rti2dss.com:8443/geoserver/th/wms?", {
+    const pro = L.tileLayer.wms(url + "/geoserver/wms?", {
         layers: 'th:province_4326',
         format: 'image/png',
         transparent: true,
@@ -46,7 +48,7 @@ $(document).ready(function () {
         lyr: 'basemap'
     });
 
-    const amp = L.tileLayer.wms('https://rti2dss.com:8443/geoserver/th/wms?', {
+    const amp = L.tileLayer.wms(url + "/geoserver/wms?", {
         layers: 'th:amphoe_4326',
         format: 'image/png',
         transparent: true,
@@ -55,7 +57,7 @@ $(document).ready(function () {
         lyr: 'basemap'
     });
 
-    const tam = L.tileLayer.wms('https://rti2dss.com:8443/geoserver/th/wms?', {
+    const tam = L.tileLayer.wms(url + "/geoserver/wms?", {
         layers: 'th:tambon_4326',
         format: 'image/png',
         transparent: true,
@@ -64,73 +66,89 @@ $(document).ready(function () {
         lyr: 'basemap'
     });
 
-    var acc_2016_4326 = L.tileLayer.wms("http://rti2dss.com:8080/geoserver/accident/wms?", {
-        layers: 'accident:acc_2016_4326',
+    var acc_2016_4326 = L.tileLayer.wms(url + "/geoserver/wms?", {
+        layers: 'acci:acc_2016_4326',
         format: 'image/png',
         transparent: true,
         zIndex: 5,
         lyr: 'acc_2016_4326'
     });
 
-    var acc_2017_4326 = L.tileLayer.wms("http://rti2dss.com:8080/geoserver/accident/wms?", {
-        layers: 'accident:acc_2017_4326',
+    var acc_2017_4326 = L.tileLayer.wms(url + "/geoserver/wms?", {
+        layers: 'acci:acc_2017_4326',
         format: 'image/png',
         transparent: true,
         zIndex: 5,
         lyr: 'acc_2017_4326'
     });
 
-    var acc_2018_4326 = L.tileLayer.wms("http://rti2dss.com:8080/geoserver/accident/wms?", {
-        layers: 'accident:acc_2018_4326',
+    var acc_2018_4326 = L.tileLayer.wms(url + "/geoserver/wms?", {
+        layers: 'acci:acc_2018_4326',
         format: 'image/png',
         transparent: true,
         zIndex: 5,
         lyr: 'acc_2018_4326'
     });
 
-    var acc_2019_4326 = L.tileLayer.wms("http://rti2dss.com:8080/geoserver/accident/wms?", {
-        layers: 'accident:acc_2019_4326',
+    var acc_2019_4326 = L.tileLayer.wms(url + "/geoserver/wms?", {
+        layers: 'acci:acc_2019_4326',
         format: 'image/png',
         transparent: true,
         zIndex: 5,
         lyr: 'acc_2019_4326'
     });
 
+    var acc_2020_4326 = L.tileLayer.wms(url + "/geoserver/wms?", {
+        layers: 'acci:acc_2020_4326',
+        format: 'image/png',
+        transparent: true,
+        zIndex: 5,
+        lyr: 'acc_2020_4326'
+    });
+
+    var acc_2021_4326 = L.tileLayer.wms(url + "/geoserver/wms?", {
+        layers: 'acci:acc_2021_4326',
+        format: 'image/png',
+        transparent: true,
+        zIndex: 5,
+        lyr: 'acc_2021_4326'
+    });
+
     // new year
-    var acci_29dec58_4jan59 = L.tileLayer.wms("http://rti2dss.com:8080/geoserver/accident/wms?", {
-        layers: 'accident:acci_29dec58_4jan59',
+    var acci_29dec58_4jan59 = L.tileLayer.wms(url + "/geoserver/wms?", {
+        layers: 'acci:acci_29dec58_4jan59',
         format: 'image/png',
         transparent: true,
         zIndex: 5,
         lyr: 'acci_29dec58_4jan59'
     });
 
-    var acci_29dec59_4jan60 = L.tileLayer.wms("http://rti2dss.com:8080/geoserver/accident/wms?", {
-        layers: 'accident:acci_29dec59_4jan60',
+    var acci_29dec59_4jan60 = L.tileLayer.wms(url + "/geoserver/wms?", {
+        layers: 'acci:acci_29dec59_4jan60',
         format: 'image/png',
         transparent: true,
         zIndex: 5,
         lyr: 'acci_29dec59_4jan60'
     });
 
-    var acci_29dec60_4jan61 = L.tileLayer.wms("http://rti2dss.com:8080/geoserver/accident/wms?", {
-        layers: 'accident:acci_29dec60_4jan61',
+    var acci_29dec60_4jan61 = L.tileLayer.wms(url + "/geoserver/wms?", {
+        layers: 'acci:acci_29dec60_4jan61',
         format: 'image/png',
         transparent: true,
         zIndex: 5,
         lyr: 'acci_29dec60_4jan61'
     });
 
-    var acci_29dec61_4jan62 = L.tileLayer.wms("http://rti2dss.com:8080/geoserver/accident/wms?", {
-        layers: 'accident:acci_29dec61_4jan62',
+    var acci_29dec61_4jan62 = L.tileLayer.wms(url + "/geoserver/wms?", {
+        layers: 'acci:acci_29dec61_4jan62',
         format: 'image/png',
         transparent: true,
         zIndex: 5,
         lyr: 'acci_29dec61_4jan62'
     });
 
-    var acci_29dec62_4jan63 = L.tileLayer.wms("http://rti2dss.com:8080/geoserver/accident/wms?", {
-        layers: 'accident:acci_29dec62_4jan63',
+    var acci_29dec62_4jan63 = L.tileLayer.wms(url + "/geoserver/wms?", {
+        layers: 'acci:acci_29dec62_4jan63',
         format: 'image/png',
         transparent: true,
         zIndex: 5,
@@ -138,32 +156,32 @@ $(document).ready(function () {
     });
 
     // songkarn
-    var acci_11_17apr59 = L.tileLayer.wms("http://rti2dss.com:8080/geoserver/accident/wms?", {
-        layers: 'accident:acci_11_17apr59',
+    var acci_11_17apr59 = L.tileLayer.wms(url + "/geoserver/wms?", {
+        layers: 'acci:acci_11_17apr59',
         format: 'image/png',
         transparent: true,
         zIndex: 5,
         lyr: 'acci_11_17apr59'
     });
 
-    var acci_11_17apr60 = L.tileLayer.wms("http://rti2dss.com:8080/geoserver/accident/wms?", {
-        layers: 'accident:acci_11_17apr60',
+    var acci_11_17apr60 = L.tileLayer.wms(url + "/geoserver/wms?", {
+        layers: 'acci:acci_11_17apr60',
         format: 'image/png',
         transparent: true,
         zIndex: 5,
         lyr: 'acci_11_17apr60'
     });
 
-    var acci_11_17apr61 = L.tileLayer.wms("http://rti2dss.com:8080/geoserver/accident/wms?", {
-        layers: 'accident:acci_11_17apr61',
+    var acci_11_17apr61 = L.tileLayer.wms(url + "/geoserver/wms?", {
+        layers: 'acci:acci_11_17apr61',
         format: 'image/png',
         transparent: true,
         zIndex: 5,
         lyr: 'acci_11_17apr61'
     });
 
-    var acci_11_17apr62 = L.tileLayer.wms("http://rti2dss.com:8080/geoserver/accident/wms?", {
-        layers: 'accident:acci_11_17apr62',
+    var acci_11_17apr62 = L.tileLayer.wms(url + "/geoserver/wms?", {
+        layers: 'acci:acci_11_17apr62',
         format: 'image/png',
         transparent: true,
         zIndex: 5,
@@ -188,6 +206,8 @@ $(document).ready(function () {
         acc_2017_4326,
         acc_2018_4326,
         acc_2019_4326,
+        acc_2020_4326,
+        acc_2021_4326,
         acci_29dec58_4jan59,
         acci_29dec59_4jan60,
         acci_29dec60_4jan61,

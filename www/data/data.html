@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit&display=swap">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
 
 </head>
 
@@ -27,7 +27,7 @@
                 ชั้นข้อมูล
             </a>
         </h5>
-        <div id="collapse" class="collapse show" aria-labelledby="heading-example">
+        <div id="collapse" class="collapse " aria-labelledby="heading-example">
             <div class="card-body">
                 <h3>ตำแหน่งเกิดอุบัติเหตุ</h3>
                 <p></p>
@@ -35,86 +35,98 @@
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="acc_2016_4326" value="acc_2016_4326">
                     <img
-                        src="http://rti2dss.com:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=accident:acc_2016_4326">
+                        src="https://rti2dss.com:8443/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=acci:acc_2016_4326">
                     <label class="form-check-label" for="exampleCheck1">อุบัติเหตุ ปี 2559</label>
                 </div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="acc_2017_4326" value="acc_2017_4326">
                     <img
-                        src="http://rti2dss.com:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=accident:acc_2017_4326">
+                        src="https://rti2dss.com:8443/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=acci:acc_2017_4326">
                     <label class="form-check-label" for="exampleCheck1">อุบัติเหตุ ปี 2560</label>
                 </div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="acc_2018_4326" value="acc_2018_4326">
                     <img
-                        src="http://rti2dss.com:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=accident:acc_2018_4326">
+                        src="https://rti2dss.com:8443/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=acci:acc_2018_4326">
                     <label class="form-check-label" for="exampleCheck1">อุบัติเหตุ ปี 2561</label>
                 </div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="acc_2019_4326" value="acc_2019_4326" checked>
                     <img
-                        src="http://rti2dss.com:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=accident:acc_2019_4326">
+                        src="https://rti2dss.com:8443/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=acci:acc_2019_4326">
                     <label class="form-check-label" for="exampleCheck1">อุบัติเหตุ ปี 2562</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="acc_2020_4326" value="acc_2019_4326" checked>
+                    <img
+                        src="https://rti2dss.com:8443/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=acci:acc_2020_4326">
+                    <label class="form-check-label" for="exampleCheck1">อุบัติเหตุ ปี 2563</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="acc_2021_4326" value="acc_2019_4326" checked>
+                    <img
+                        src="https://rti2dss.com:8443/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=acci:acc_2021_4326">
+                    <label class="form-check-label" for="exampleCheck1">อุบัติเหตุ ปี 2564</label>
                 </div>
                 <h3>เทศกาลปีใหม่</h3>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="acci_29dec58_4jan59"
                         value="acci_29dec58_4jan59">
                     <img
-                        src="http://rti2dss.com:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=accident:acci_29dec58_4jan59">
+                        src="https://rti2dss.com:8443/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=acci:acci_29dec58_4jan59">
                     <label class="form-check-label" for="exampleCheck1">อุบัติเหตุ 30ธ.ค.58-5ม.ค.59</label>
                 </div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="acci_29dec59_4jan60"
                         value="acci_29dec59_4jan60">
                     <img
-                        src="http://rti2dss.com:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=accident:acci_29dec59_4jan60">
+                        src="https://rti2dss.com:8443/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=acci:acci_29dec59_4jan60">
                     <label class="form-check-label" for="exampleCheck1">อุบัติเหตุ 29ธ.ค.59-4ม.ค.60</label>
                 </div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="acci_29dec60_4jan61"
                         value="acci_29dec60_4jan61">
                     <img
-                        src="http://rti2dss.com:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=accident:acci_29dec60_4jan61">
+                        src="https://rti2dss.com:8443/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=acci:acci_29dec60_4jan61">
                     <label class="form-check-label" for="exampleCheck1">อุบัติเหตุ 29ธ.ค.60-3ม.ค.61</label>
                 </div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="acci_29dec61_4jan62"
                         value="acci_29dec61_4jan62">
                     <img
-                        src="http://rti2dss.com:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=accident:acci_29dec61_4jan62">
+                        src="https://rti2dss.com:8443/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=acci:acci_29dec61_4jan62">
                     <label class="form-check-label" for="exampleCheck1">อุบัติเหตุ 28ธ.ค.61-3ม.ค.62</label>
                 </div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="acci_29dec62_4jan63"
                         value="acci_29dec62_4jan63">
                     <img
-                        src="http://rti2dss.com:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=accident:acci_29dec62_4jan63">
+                        src="https://rti2dss.com:8443/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=acci:acci_29dec62_4jan63">
                     <label class="form-check-label" for="exampleCheck1">อุบัติเหตุ 27ธ.ค.62-2ม.ค.63</label>
                 </div>
                 <h3>เทศกาลสงกรานต์</h3>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="acci_11_17apr59" value="acci_11_17apr59">
                     <img
-                        src="http://rti2dss.com:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=accident:acci_11_17apr59">
+                        src="https://rti2dss.com:8443/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=acci:acci_11_17apr59">
                     <label class="form-check-label" for="exampleCheck1">อุบัติเหตุ 11-17เม.ย.59</label>
                 </div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="acci_11_17apr60" value="acci_11_17apr60">
                     <img
-                        src="http://rti2dss.com:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=accident:acci_11_17apr60">
+                        src="https://rti2dss.com:8443/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=acci:acci_11_17apr60">
                     <label class="form-check-label" for="exampleCheck1">อุบัติเหตุ 11-17เม.ย.60</label>
                 </div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="acci_11_17apr61" value="acci_11_17apr61">
                     <img
-                        src="http://rti2dss.com:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=accident:acci_11_17apr61">
+                        src="https://rti2dss.com:8443/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=acci:acci_11_17apr61">
                     <label class="form-check-label" for="exampleCheck1">อุบัติเหตุ 11-17เม.ย.61</label>
                 </div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="acci_11_17apr62" value="acci_11_17apr62">
                     <img
-                        src="http://rti2dss.com:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=accident:acci_11_17apr62">
+                        src="https://rti2dss.com:8443/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=acci:acci_11_17apr62">
                     <label class="form-check-label" for="exampleCheck1">อุบัติเหตุ 11-17เม.ย.62</label>
                 </div>
                 <div id="res"></div>
@@ -136,6 +148,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
-<script src="data.js"></script>
+<script src="./data.js"></script>
 
 </html>
