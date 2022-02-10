@@ -29,7 +29,7 @@ function loadMap() {
         subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
     });
 
-    const pro = L.tileLayer.wms("http://rti2dss.com:8080/geoserver/th/wms?", {
+    const pro = L.tileLayer.wms("https://rti2dss.com:8443/geoserver/th/wms?", {
         layers: 'th:province_4326',
         format: 'image/png',
         transparent: true,
@@ -37,14 +37,14 @@ function loadMap() {
         CQL_FILTER: 'pro_code=53'
 
     });
-    const amp = L.tileLayer.wms('http://rti2dss.com:8080/geoserver/th/wms?', {
+    const amp = L.tileLayer.wms('https://rti2dss.com:8443/geoserver/th/wms?', {
         layers: 'th:amphoe_4326',
         format: 'image/png',
         transparent: true,
         zIndex: 5,
         CQL_FILTER: 'pro_code=53'
     });
-    const tam = L.tileLayer.wms('http://rti2dss.com:8080/geoserver/th/wms?', {
+    const tam = L.tileLayer.wms('https://rti2dss.com:8443/geoserver/th/wms?', {
         layers: 'th:tambon_4326',
         format: 'image/png',
         transparent: true,
@@ -52,7 +52,7 @@ function loadMap() {
         CQL_FILTER: 'pro_code=53'
     });
 
-    const riskpoint = L.tileLayer.wms('http://rti2dss.com:8080/geoserver/accident/wms?', {
+    const riskpoint = L.tileLayer.wms('https://rti2dss.com:8443/geoserver/accident/wms?', {
         layers: 'accident:ud_riskpoint_4326',
         format: 'image/png',
         transparent: true,

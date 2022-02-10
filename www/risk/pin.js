@@ -36,7 +36,7 @@ function loadMap() {
     subdomains: ["mt0", "mt1", "mt2", "mt3"]
   });
 
-  var pro = L.tileLayer.wms("http://rti2dss.com:8080/geoserver/th/wms?", {
+  var pro = L.tileLayer.wms("https://rti2dss.com:8443/geoserver/th/wms?", {
     layers: "th:province_4326",
     format: "image/png",
     transparent: true
