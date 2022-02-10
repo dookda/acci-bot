@@ -52,8 +52,8 @@ function loadMap() {
         CQL_FILTER: 'pro_code=53'
     });
 
-    const riskpoint = L.tileLayer.wms('https://rti2dss.com:8443/geoserver/accident/wms?', {
-        layers: 'accident:ud_riskpoint_4326',
+    const riskpoint = L.tileLayer.wms('https://rti2dss.com:8443/geoserver/wms?', {
+        layers: 'acci:ud_riskpoint_4326_v',
         format: 'image/png',
         transparent: true,
         zIndex: 5
@@ -64,11 +64,19 @@ function loadMap() {
         "แผนที่ถนน": grod,
         "แผนที่ภาพถ่าย": ghyb
     }
-    layerControl = L.control.layers(baseMap).addTo(map);
-    layerControl.addOverlay(tam.addTo(map), 'ขอบเขตตำบล');
-    layerControl.addOverlay(amp.addTo(map), 'ขอบเขตอำเภอ');
-    layerControl.addOverlay(pro.addTo(map), 'ขอบเขตจังหวัด');
-    layerControl.addOverlay(riskpoint.addTo(map), 'จุดเสี่ยง');
+
+    var overlay = {
+        'ขอบเขตตำบล': tam.addTo(map),
+        'ขอบเขตอำเภอ': amp.addTo(map),
+        'ขอบเขตจังหวัด': pro.addTo(map),
+        'จุดเสี่ยง': riskpoint
+    }
+
+    layerControl = L.control.layers(baseMap, overlay).addTo(map);
+    // layerControl.addOverlay(tam.addTo(map), 'ขอบเขตตำบล');
+    // layerControl.addOverlay(amp.addTo(map), 'ขอบเขตอำเภอ');
+    // layerControl.addOverlay(pro.addTo(map), 'ขอบเขตจังหวัด');
+    // layerControl.addOverlay(riskpoint.addTo(map), 'จุดเสี่ยง');
 
     map.on('locationfound', onLocationFound);
     map.on('locationerror', onLocationError);
@@ -112,6 +120,8 @@ function getDisease(lat, lon) {
             map.removeLayer(lyr);
         }
     });
+    // lat = 17.629797316684733;
+    // lon = 100.12873467982418;
     $.get(`https://rti2dss.com:3100/acc-api/riskpoint/${lat}/${lon}/${buff}`, (res) => {
         $('#sumpoint').text('พบจุดเสี่ยงใกล้คุณ ' + res.count + ' จุด');
         $('#items').empty();
@@ -125,8 +135,9 @@ function getDisease(lat, lon) {
                 });
             },
             onEachFeature: (feature, layer) => {
+                console.log(feature);
                 if (feature.properties) {
-                    layer.bindPopup(feature.properties.name);
+                    layer.bindPopup(feature.properties.sname);
                 }
                 var newDiv = $(`<h4><span class="badge badge-warning">${feature.properties.stype} ${feature.properties.sname}</span></h4>`);
                 // console.log(feature.properties)
