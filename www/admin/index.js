@@ -203,7 +203,6 @@ function chart(cat, val) {
         series: [{
             name: 'จำนวนการเกิดอุบัติเหตุ',
             data: val
-
         }]
     });
 }

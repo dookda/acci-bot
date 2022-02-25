@@ -71,8 +71,11 @@ function onLocationFound(e) {
         tam = res.data[0].tam_name;
         amp = res.data[0].amp_name;
         pro = res.data[0].pro_name;
-        const txt = `ต.${tam} อ.${amp} จ.${pro}`;
-        $('#address').val(txt)
+        // const txt = `ต.${tam} อ.${amp} จ.${pro}`;
+        // $('#address').val(txt)
+        $('#tam').val(tam);
+        $('#amp').val(amp);
+        $('#pro').val(pro);
     })
 }
 
@@ -155,9 +158,9 @@ function saveData() {
     const obj = {
         name: name,
         acc_place: $('#location').val(),
-        tam: tam,
-        amp: amp,
-        pro: pro,
+        tam: $('#tam').val(),
+        amp: $('#amp').val(),
+        pro: $('#pro').val(),
         x: x,
         y: y,
         vehicle: $('#vehicle').val(),

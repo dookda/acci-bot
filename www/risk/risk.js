@@ -147,7 +147,6 @@ function getDisease(lat, lon) {
         marker.addTo(point);
         point.addTo(map);
     })
-
     // layerControl.addOverlay(point.addTo(map), 'จุดเสี่ยงในรัศมี 2 กม.');
 }
 

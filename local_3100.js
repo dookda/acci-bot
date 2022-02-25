@@ -23,3 +23,6 @@ app.use(express.static(__dirname + '/www'));
 
 const api = require('./service/app');
 app.use(api);
+
+const app2022 = require('./service/app2022');
+app.use(app2022);
