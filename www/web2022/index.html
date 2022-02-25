@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>รายงานอุบัติเหตุ จ.อุตรดิตถ์</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@200;400&display=swap" rel="stylesheet">
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">
+            <span class="d-block d-lg-none">Clarence Taylor</span>
+            <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2"
+                    src="assets/img/accident.png" alt="..." /></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">หน้าหลัก</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#report">รายงาน</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">แก้ไข</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">จุดเสี่ยง</a></li>
+                <!-- <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#interests">Interests</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#awards">Awards</a></li> -->
+            </ul>
+        </div>
+    </nav>
+    <!-- Page Content-->
+    <div class="container-fluid p-0">
+        <!-- About-->
+        <section class="resume-section" id="about">
+            <div class="resume-section-content">
+                <h1 class="mb-0">
+                    รายงาน
+                    <span class="text-primary">อุบัติเหตุ</span>
+                </h1>
+                <div class="subheading mb-5">
+
+                </div>
+                <p class="lead mb-5">รายงานอุบัติเหตุจากการจราจรทางถนนของจังหวัดอุตรดิตถ์​ </p>
+                <div class="social-icons">
+                    <!-- <a class="social-icon" href="#!"><i class="fab fa-linkedin-in"></i></a> -->
+                    <a class="social-icon" href="#!"><i class="fab fa-github"></i></a>
+                    <!-- <a class="social-icon" href="#!"><i class="fab fa-twitter"></i></a> -->
+                    <a class="social-icon" href="#!"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+        </section>
+        <hr class="m-0" />
+        <!-- Experience-->
+        <section class="resume-section" id="report">
+            <div class="resume-section-content">
+                <h3 class="mb-5">จุดเกิดอุบัติเหตุ</h3>
+                <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                    <div id="map"></div>
+                </div>
+                <div class="d-flex flex-column flex-md-row justify-content-between mb-1">
+                    <div class="flex-grow-1">
+                        <!-- <h3 class="mb-0">ข้อมูลการเกิดอุบัติเหตุ</h3> -->
+                        <div class="subheading mb-3">รายงานผ่านแอพพลิเคชั่น</div>
+                    </div>
+                    <div class="flex-shrink-0"><span class="text-primary"> ข้อมูลล่าสุด เมื่อ December 2011 - March
+                            2013</span></div>
+                </div>
+                <table id="acctable" class="display nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>gid</th>
+                            <th>ที่เกิดเหตุ</th>
+                            <th>ยานพาหนะ</th>
+                            <th>ตำบล</th>
+                            <th>อำเภอ</th>
+                            <th>วันที่</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </section>
+        <hr class="m-0" />
+
+        <!-- <section class="resume-section" id="education">
+            <div class="resume-section-content">
+                <h2 class="mb-5">Education</h2>
+                <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                    <div class="flex-grow-1">
+                        <h3 class="mb-0">University of Colorado Boulder</h3>
+                        <div class="subheading mb-3">Bachelor of Science</div>
+                        <div>Computer Science - Web Development Track</div>
+                        <p>GPA: 3.23</p>
+                    </div>
+                    <div class="flex-shrink-0"><span class="text-primary">August 2006 - May 2010</span></div>
+                </div>
+                <div class="d-flex flex-column flex-md-row justify-content-between">
+                    <div class="flex-grow-1">
+                        <h3 class="mb-0">James Buchanan High School</h3>
+                        <div class="subheading mb-3">Technology Magnet Program</div>
+                        <p>GPA: 3.56</p>
+                    </div>
+                    <div class="flex-shrink-0"><span class="text-primary">August 2002 - May 2006</span></div>
+                </div>
+            </div>
+        </section>
+        <hr class="m-0" /> -->
+
+        <!-- <section class="resume-section" id="skills">
+            <div class="resume-section-content">
+                <h2 class="mb-5">Skills</h2>
+                <div class="subheading mb-3">Programming Languages & Tools</div>
+                <ul class="list-inline dev-icons">
+                    <li class="list-inline-item"><i class="fab fa-html5"></i></li>
+                    <li class="list-inline-item"><i class="fab fa-css3-alt"></i></li>
+                    <li class="list-inline-item"><i class="fab fa-js-square"></i></li>
+                    <li class="list-inline-item"><i class="fab fa-angular"></i></li>
+                    <li class="list-inline-item"><i class="fab fa-react"></i></li>
+                    <li class="list-inline-item"><i class="fab fa-node-js"></i></li>
+                    <li class="list-inline-item"><i class="fab fa-sass"></i></li>
+                    <li class="list-inline-item"><i class="fab fa-less"></i></li>
+                    <li class="list-inline-item"><i class="fab fa-wordpress"></i></li>
+                    <li class="list-inline-item"><i class="fab fa-gulp"></i></li>
+                    <li class="list-inline-item"><i class="fab fa-grunt"></i></li>
+                    <li class="list-inline-item"><i class="fab fa-npm"></i></li>
+                </ul>
+                <div class="subheading mb-3">Workflow</div>
+                <ul class="fa-ul mb-0">
+                    <li>
+                        <span class="fa-li"><i class="fas fa-check"></i></span>
+                        Mobile-First, Responsive Design
+                    </li>
+                    <li>
+                        <span class="fa-li"><i class="fas fa-check"></i></span>
+                        Cross Browser Testing & Debugging
+                    </li>
+                    <li>
+                        <span class="fa-li"><i class="fas fa-check"></i></span>
+                        Cross Functional Teams
+                    </li>
+                    <li>
+                        <span class="fa-li"><i class="fas fa-check"></i></span>
+                        Agile Development & Scrum
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <hr class="m-0" /> -->
+
+        <!-- <section class="resume-section" id="interests">
+            <div class="resume-section-content">
+                <h2 class="mb-5">Interests</h2>
+                <p>Apart from being a web developer, I enjoy most of my time being outdoors. In the winter, I am an avid
+                    skier and novice ice climber. During the warmer months here in Colorado, I enjoy mountain biking,
+                    free climbing, and kayaking.</p>
+                <p class="mb-0">When forced indoors, I follow a number of sci-fi and fantasy genre movies and television
+                    shows, I am an aspiring chef, and I spend a large amount of my free time exploring the latest
+                    technology advancements in the front-end web development world.</p>
+            </div>
+        </section>
+        <hr class="m-0" />
+       
+        <section class="resume-section" id="awards">
+            <div class="resume-section-content">
+                <h2 class="mb-5">Awards & Certifications</h2>
+                <ul class="fa-ul mb-0">
+                    <li>
+                        <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                        Google Analytics Certified Developer
+                    </li>
+                    <li>
+                        <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                        Mobile Web Specialist - Google Certification
+                    </li>
+                    <li>
+                        <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                        1
+                        <sup>st</sup>
+                        Place - University of Colorado Boulder - Emerging Tech Competition 2009
+                    </li>
+                    <li>
+                        <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                        1
+                        <sup>st</sup>
+                        Place - University of Colorado Boulder - Adobe Creative Jam 2008 (UI Design Category)
+                    </li>
+                    <li>
+                        <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                        2
+                        <sup>nd</sup>
+                        Place - University of Colorado Boulder - Emerging Tech Competition 2008
+                    </li>
+                    <li>
+                        <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                        1
+                        <sup>st</sup>
+                        Place - James Buchanan High School - Hackathon 2006
+                    </li>
+                    <li>
+                        <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                        3
+                        <sup>rd</sup>
+                        Place - James Buchanan High School - Hackathon 2005
+                    </li>
+                </ul>
+            </div>
+        </section> -->
+    </div>
+
+    <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content p-2">
+                <div class="modal-header">
+                    <input type="text" id="pkid" readonly="true" style="border: 0px;" />
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="login-form">
+
+                        <p>
+                        <div class="card bg-light mb-3 p-3">
+                            <div class="row">
+                                <div class="col-sm-1">
+                                    <div class="form-group">
+                                        <label class="login-field-icon fui-user" for="gid">id</label>
+                                        <input type="number" class="form-control" name="gid[]" id="gid${v.gid}"
+                                            readonly="true" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group"><label class="login-field-icon fui-user"
+                                            for="sex">คำนำหน้า</label>
+                                        <select class="form-control" name="title_name[]" id="title_name${v.gid}">
+                                            <option value="" disabled>คำนำหน้า</option>
+                                            <option value="นาย">นาย</option>
+                                            <option value="นาง">นาง</option>
+                                            <option value="น.ส.">น.ส.</option>
+                                            <option value="ด.ช.">ด.ช.</option>
+                                            <option value="ด.ญ.">ด.ญ.</option>
+                                            <option value="Mr.">Mr.</option>
+                                            <option value="Mrs.">Mrs.</option>
+                                            <option value="Ms.">Ms.</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="login-field-icon fui-new" for="first_name">ชื่อ</label>
+                                        <input type="text" class="form-control" name="first_name[]"
+                                            id="first_name${v.gid}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="form-group">
+                                        <label class="login-field-icon fui-user" for="last_name">นามสกุล</label>
+                                        <input type="text" class="form-control" name="last_name[]"
+                                            id="last_name${v.gid}" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <label class="login-field-icon fui-user" for="type">บาดเจ็บ/เสียชีวิต</label>
+                                    <select class="form-control" name="type[]" id="type${v.gid}">
+                                        <option value="" disabled>บาดเจ็บ/เสียชีวิต</option>
+                                        <option value="บาดเจ็บ">บาดเจ็บ</option>
+                                        <option value="เสียชีวิต">เสียชีวิต</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="login-field-icon fui-user"
+                                        for="id_card">เลขบัตรประจำตัวประชาชน</label>
+                                    <input type="number" class="form-control" name="id_card[]" id="id_card${v.gid}" />
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="login-field-icon fui-user" for="age">อายุ</label>
+                                        <input type="number" class="form-control" name="age[]" id="age${v.gid}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group"><label class="login-field-icon fui-user"
+                                            for="sex">เพศ</label>
+                                        <select class="form-control" name="sex[]" id="sex${v.gid}">
+                                            <option value="" disabled>เพศ</option>
+                                            <option value="ชาย">ชาย</option>
+                                            <option value="หญิง">หญิง</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="login-field-icon fui-user"
+                                    for="p_place">ที่อยู่ผู้บาดเจ็บ-เสียชีวิต</label>
+                                <input type="text" class="form-control" name="p_place[]" id="p_place${v.gid}" />
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="login-field-icon fui-user"
+                                            for="injury_type">ประเภทผู้บาดเจ็บ</label>
+                                        <select class="form-control" name="injury_type[]" id="injury_type${v.gid}">
+                                            <option value="" disabled>ประเภทผู้บาดเจ็บ</option>
+                                            <option value="ขับขี่">ขับขี่</option>
+                                            <option value="โดยสาร">โดยสาร</option>
+                                            <option value="เดินเท้า">เดินเท้า</option>
+                                            <option value="อื่นๆ">อื่นๆ</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="login-field-icon fui-user" for="alcohol">แอลกอฮอล์</label>
+                                        <select class="form-control" name="alcohol[]" id="alcohol${v.gid}">
+                                            <option value="" disabled>แอลกอฮอล์</option>
+                                            <option value="ดื่มแอลกอฮอล์">ดื่มแอลกอฮอล์</option>
+                                            <option value="ไม่ดื่มแอลกอฮอล์">ไม่ดื่มแอลกอฮอล์</option>
+                                            <option value="ไม่ทราบ">ไม่ทราบ</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="login-field-icon fui-user" for="behaviour">พฤติกรรมเสี่ยง</label>
+                                        <select class="form-control" name="behaviour[]" id="behaviour${v.gid}">
+                                            <option value="" disabled>พฤติกรรมเสี่ยง</option>
+                                            <option value="ไม่สวมหมวกนิรภัย">ไม่สวมหมวกนิรภัย</option>
+                                            <option value="ไม่คาดเข็มขัดนิรภัย">ไม่คาดเข็มขัดนิรภัย</option>
+                                            <option value="ขับรถเร็ว">ขับรถเร็ว</option>
+                                            <option value="รถดัดแปลง">รถดัดแปลง</option>
+                                            <option value="กลับรถ">กลับรถ</option>
+                                            <option value="ไฟท้ายไม่ชัดเจน">ไฟท้ายไม่ชัดเจน</option>
+                                            <option value="บรรทุกหนัก">บรรทุกหนัก</option>
+                                            <option value="ขับย้อนศร">ขับย้อนศร</option>
+                                            <option value="มีงานก่อสร้างทาง">มีงานก่อสร้างทาง</option>
+                                            <option value="ขับรถตัดหน้า">ขับรถตัดหน้า</option>
+                                            <option value="ไม่ทราบ">ไม่ทราบ</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="login-field-icon fui-user" for="death_info">ข้อมูลเสียชีวิต
+                                            (ภายใน30
+                                            วันจากเกิดเหตุ)</label>
+                                        <select class="form-control" name="death_info[]" id="death_info${v.gid}">
+                                            <option value="" disabled>ข้อมูลเสียชีวิต</option>
+                                            <option value="ที่เกิดเหตุ">ที่เกิดเหตุ</option>
+                                            <option value="ER">ER</option>
+                                            <option value="ผู้ป่วยใน">ผู้ป่วยใน</option>
+                                            <option value="ระหว่างส่งต่อ ณ จุดเกิดเหตุ-รพ.">ระหว่างส่งต่อ ณ
+                                                จุดเกิดเหตุ-รพ.</option>
+                                            <option value="ระหว่างส่งต่อ รพช.-รพศ.">ระหว่างส่งต่อ รพช.-รพศ.</option>
+                                            <option value="อื่นๆ">อื่นๆ</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="login-field-icon fui-user"
+                                            for="death_date">วันที่เสียชีวิต</label>
+                                        <input type="date" class="form-control" name="death_date[]"
+                                            id="death_date${v.gid}" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="login-field-icon fui-user" for="death_time">เวลาเสียชีวิต</label>
+                                        <input type="time" class="form-control" name="death_time[]"
+                                            id="death_time${v.gid}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="login-field-icon fui-user" for="acc_place">สถานที่เกิดเหตุ</label>
+                                    <input type="text" class="form-control" id="acc_place" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="login-field-icon fui-user" for="acc_date">วันที่เกิดเหตุ</label>
+                                    <input type="date" class="form-control" id="acc_date" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="login-field-icon fui-user" for="acc_time">เวลาที่เกิดเหตุ</label>
+                                    <input type="time" class="form-control" id="acc_time" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    ใช้เมาส์ขยับ marker ไปยังสถานที่เกิดเหตุ <br>
+                                    <div id="map"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="login-field-icon fui-user" for="pro">จังหวัด</label>
+                                            <input type="text" class="form-control" id="pro" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="login-field-icon fui-user" for="amp">อำเภอ</label>
+                                            <input type="text" class="form-control" id="amp" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label class="login-field-icon fui-user" for="tam">ตำบล</label>
+                                        <input type="text" class="form-control" id="tam" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 form-group">
+                                        <label class="login-field-icon fui-user" for="x">พิกัด ละติจูด</label>
+                                        <input type="number" class="form-control" id="x" />
+                                    </div>
+                                    <div class="col-sm-6 form-group">
+                                        <label class="login-field-icon fui-user" for="y">พิกัด ลองจิจูด</label>
+                                        <input type="number" class="form-control" id="y" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <!-- <input type="text" class="form-control" placeholder="vehicle" id="vehicle" formControlName="vehicle" /> -->
+                                    <label class="login-field-icon fui-user"
+                                        for="vehicle">ยานพาหนะคนเจ็บ/ผู้เสียชีวิต</label>
+                                    <select class="form-control" id="vehicle">
+                                        <option value="" disabled>ยานพาหนะ</option>
+                                        <option value="รถจักรยานยนต์">รถจักรยานยนต์</option>
+                                        <option value="รถจักรยาน">รถจักรยาน</option>
+                                        <option value="รถยนต์">รถเก๋ง</option>
+                                        <option value="รถโดยสาร">รถโดยสาร</option>
+                                        <option value="รถปิคอัพ">รถปิคอัพ</option>
+                                        <option value="รถบรรทุก">รถบรรทุก</option>
+                                        <option value="รถไฟ">รถไฟ</option>
+                                        <option value="รถตู้">รถตู้</option>
+                                        <option value="รถลากเข็น">รถลากเข็น</option>
+                                        <option value="อื่นๆ">อื่นๆ</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="login-field-icon fui-user" for="transfer_by">ยานพาหนะคู่กรณี</label>
+                                    <select class="form-control" id="disputant">
+                                        <option value="" disabled>ยานพาหนะ</option>
+                                        <option value="รถจักรยานยนต์">รถจักรยานยนต์</option>
+                                        <option value="รถจักรยาน">รถจักรยาน</option>
+                                        <option value="รถยนต์">รถเก๋ง</option>
+                                        <option value="รถโดยสาร">รถโดยสาร</option>
+                                        <option value="รถปิคอัพ">รถปิคอัพ</option>
+                                        <option value="รถบรรทุก">รถบรรทุก</option>
+                                        <option value="รถไฟ">รถไฟ</option>
+                                        <option value="รถตู้">รถตู้</option>
+                                        <option value="รถลากเข็น">รถลากเข็น</option>
+                                        <option value="อื่นๆ">อื่นๆ</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="login-field-icon fui-user" for="to_hospital">ส่งต่อ
+                                        รพ</label>
+                                    <input type="text" class="form-control" placeholder="to_hospital"
+                                        id="to_hospital" />
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="login-field-icon fui-user" for="transfer_type">หน่วยที่นำส่ง</label>
+                                    <select class="form-control" id="transfer_type">
+                                        <option value="" disabled>หน่วยที่นำส่ง</option>
+                                        <option value="ประชาชน/มาเอง">ประชาชน/มาเอง</option>
+                                        <option value="EMS 8 นาที">EMS 8 นาที</option>
+                                        <option value="EMS 10 นาที">EMS 10 นาที</option>
+                                        <option value="EMS เกิน 10 นาที">EMS เกิน 10 นาที</option>
+                                        <option value="มูลนิธิอุตรดิตถ์สงเคราะห์">มูลนิธิอุตรดิตถ์สงเคราะห์
+                                        </option>
+                                        <option value="สมาคมกู้ภัยวัดหมอนไม้">สมาคมกู้ภัยวัดหมอนไม้</option>
+                                        <option value="กู้ภัยอบต เทศบาล">กู้ภัยอบต เทศบาล</option>
+                                        <option value="กู้ภัยลำน้ำน่าน">กู้ภัยลำน้ำน่าน</option>
+                                        <option value="กู้ชีพโรงพยาบาล">กู้ชีพโรงพยาบาล</option>
+                                        <option value="อื่นๆ">อื่นๆ</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="img">ถ่ายภาพ</label>
+                                    <div class="form-group">
+                                        <input type="file" accept="image/*" name="imgfile" id="imgfile">
+                                        <p></p>
+                                        <img src="" id="preview" width="250px">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div id="divInsert"></div>
+                        <div id="divEdit"></div>
+                        <button type="button" id="addMore" class="btn btn-success"><i
+                                class='bx bx-plus-circle'></i>&nbsp;
+                            เพิ่มผู้บาดเจ็บรายอื่น</button>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button> -->
+                    <button type="button" class="btn btn-info" id="insertData">
+                        <i class='bx bxs-save'></i>&nbsp; บันทึก
+                    </button>
+                    <button type="button" class="btn btn-info" id="updateData">
+                        <i class='bx bx-edit'></i>&nbsp; บันทึกการแก้ไข
+                    </button>
+                    <!-- &nbsp; -->
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <i class='bx bx-undo'></i>&nbsp; กลับหน้ารายงาน
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./js/scripts.js"></script>
+    <script src="./app.js"></script>
+</body>
+
+</html>
