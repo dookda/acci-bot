@@ -4,9 +4,9 @@ const express = require('express');
 const app = express();
 
 var https_options = {
-  key: fs.readFileSync("/etc/apache2/ssl/private.key"),
-  cert: fs.readFileSync("/etc/apache2/ssl/public.crt"),
-  ca: fs.readFileSync('/etc/apache2/ssl/intermediate.crt')
+    key: fs.readFileSync("/etc/apache2/ssl/private.key"),
+    cert: fs.readFileSync("/etc/apache2/ssl/public.crt"),
+    ca: fs.readFileSync('/etc/apache2/ssl/intermediate.crt')
 };
 
 const bodyParser = require('body-parser');
@@ -24,17 +24,20 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+// const api = require('./service/app');
+// app.use(api);
+
+var server = https.createServer(https_options, app);
+var port = process.env.PORT || 3100;
+server.listen(port, function () {
+    console.log('Hello IREALLYHOST listening on port ' + server.address().port);
+});
+
+app.use(express.static(__dirname + '/www'));
+
 const api = require('./service/app');
 app.use(api);
 
-var server = https.createServer( https_options , app );
-var port = process.env.PORT || 3100;
-server.listen( port, function () {
-    console.log( 'Hello IREALLYHOST listening on port ' + server.address().port );
-});
-
-//app.listen(3100, () => {
-//    console.log('running on http://localhost:3100..')
-//});
-// app.use(express.static(__dirname + '/www'));
+const app2022 = require('./service/app2022');
+app.use(app2022);
 
