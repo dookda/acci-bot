@@ -1,7 +1,7 @@
 "use strict"
 
 
-const url = 'https://rti2dss.com:3100';
+const url = 'https://rti2dss.com/p3100';
 // const url = 'http://localhost:3100';
 $(document).ready(async function () {
     loadMap();

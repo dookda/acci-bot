@@ -1,6 +1,6 @@
 'use strict'
 
-const url = 'https://rti2dss.com:3100';
+const url = 'https://rti2dss.com/p3100';
 mapboxgl.accessToken = 'pk.eyJ1IjoiZG9va2RhIiwiYSI6ImNrYTEyOGtvNDA3bmEzaHA2ZDU5bDFiYnIifQ.zO12kPiWg7C_50kWrfRNKg';
 let dataurl;
 let insertForm = `<p><div class="card bg-light mb-3 p-3">
