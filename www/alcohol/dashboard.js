@@ -6,7 +6,7 @@ const url = "https://rti2dss.com:3100";
 $(document).ready(function () {
     table = $('#myTable').DataTable({
         ajax: {
-            url: url + '/acc-api/alcohol-get',
+            url: '/acc-api/alcohol-get',
             dataSrc: 'data'
         },
         columns: [
@@ -98,7 +98,7 @@ function setValue(gid, rname, sname, stype, tel, status, lat, lon) {
     $("#tel").val(tel);
     $("#status").val(tel);
 
-    $.post(url + "/acc-api/alcohol-getimg", { gid: gid }).done(r => {
+    $.post("/acc-api/alcohol-getimg", { gid: gid }).done(r => {
         // console.log(r);
         $("#img").attr('src', r.data[0].img)
     })
@@ -121,7 +121,7 @@ function updateData() {
         // geom: JSON.stringify(marker.toGeoJSON().geometry)
     };
     // console.log(obj);
-    $.post(url + "/acc-api/alcohol-update", obj).done(res => {
+    $.post("/acc-api/alcohol-update", obj).done(res => {
         console.log(obj)
         $("#editModal").modal("hide")
         $('#myTable').DataTable().ajax.reload();
@@ -130,7 +130,7 @@ function updateData() {
 }
 
 function delData(gid) {
-    $.post(url + "/acc-api/alcohol-delete", { gid: gid }).done(r => {
+    $.post("/acc-api/alcohol-delete", { gid: gid }).done(r => {
         $("#deleteModal").modal("show");
     })
 }

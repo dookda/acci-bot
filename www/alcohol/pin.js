@@ -90,7 +90,7 @@ function insertData() {
     geom: JSON.stringify(gps.toGeoJSON().geometry)
   };
 
-  $.post(url + "/acc-api/alcohol-insert", obj).done(res => {
+  $.post("/acc-api/alcohol-insert", obj).done(res => {
     console.log(obj)
     // getData();
     dataurl = null;

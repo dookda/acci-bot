@@ -106,7 +106,7 @@ function rmLyr() {
 function getData(dateStart, dateEnd) {
     rmLyr()
     let mkArr = []
-    $.get(url + '/acc-api/get-acc-info-geojson/' + dateStart + '/' + dateEnd).done((res) => {
+    $.get('/acc-api/get-acc-info-geojson/' + dateStart + '/' + dateEnd).done((res) => {
         $("#riskList").empty();
         const redMarker = L.icon({
             iconUrl: './marker/marker-red.svg',

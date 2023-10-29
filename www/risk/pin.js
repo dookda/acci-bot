@@ -43,8 +43,8 @@ function loadMap() {
   });
 
   var baseMap = {
-    Mapbox: mapbox.addTo(map),
-    "google Hybrid": ghyb
+    Mapbox: mapbox,
+    "google Hybrid": ghyb.addTo(map)
   };
 
   var overlayMap = {
@@ -98,7 +98,7 @@ async function getData() {
     map.removeLayer(marker);
   }
 
-  await $.get(url + "/acc-api/pin-getdata", res => {
+  await $.get("/acc-api/pin-getdata", res => {
     marker = L.geoJSON(res, {
       pointToLayer: (feature, latlng) => {
 
@@ -144,7 +144,7 @@ function selectMarker(e) {
   // console.log(e);
   $("#save").attr("disabled", true);
 
-  $.get(url + "/acc-api/pin-getimg/" + e.layer.feature.properties.id).done(
+  $.get("/acc-api/pin-getimg/" + e.layer.feature.properties.id).done(
     res => {
       console.log(res);
     }
@@ -189,7 +189,7 @@ function insertData() {
     geom: JSON.stringify(gps.toGeoJSON().geometry)
   };
 
-  $.post(url + "/acc-api/pin-insert", obj).done(res => {
+  $.post("/acc-api/pin-insert", obj).done(res => {
     console.log(obj)
     // getData();
     dataurl = null;

@@ -26,7 +26,7 @@ $(function () {
     });
 
     var tb = $('#user').DataTable({
-        "ajax": url + '/getMember',
+        "ajax": '/getMember',
         "columns": [{
             "data": "id_user"
         }, {
@@ -60,7 +60,7 @@ $(function () {
 
     $('#btnYesDel').on('click', () => {
         // console.log(selUser);
-        $.post(url + '/removeuser', {
+        $.post('/removeuser', {
             id: selUser.id,
             id_user: selUser.id_user
         }, (data, status) => {
@@ -81,7 +81,7 @@ $(function () {
         var email = $('#add_email').val();
         var role = $('#add_role option:selected').text()
         // console.log(role);
-        $.post(url + '/insertuser', {
+        $.post('/insertuser', {
             id_user: id_user,
             id_pass: id_pass,
             firstname: firstname,

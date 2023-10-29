@@ -166,7 +166,7 @@ $(document).ready(async function () {
 
     if (usr == 'guest') {
         $('#data').DataTable({
-            ajax: url + "/acc-api/get-acc-info",
+            ajax: "/acc-api/get-acc-info",
             columns: [
                 { data: "acc_date" },
                 { data: "acc_place" },
@@ -178,7 +178,7 @@ $(document).ready(async function () {
         });
     } else {
         $('#data').DataTable({
-            ajax: url + "/acc-api/get-acc-info",
+            ajax: "/acc-api/get-acc-info",
             columns: [
                 { data: "acc_date" },
                 { data: "acc_place" },
@@ -336,7 +336,7 @@ $(document).ready(async function () {
             arrObj: arrObj
         }
         // console.log(obj)
-        $.post(url + '/acc-api/forminsert', obj).done(res => {
+        $.post('/acc-api/forminsert', obj).done(res => {
             $('#dataModal').modal('hide');
             $('#data').DataTable().ajax.reload();
         })
@@ -457,7 +457,7 @@ $(document).ready(async function () {
             arrObj: arrObj
         }
 
-        $.post(url + '/acc-api/formupdate', obj).done(res => {
+        $.post('/acc-api/formupdate', obj).done(res => {
             $('#dataModal').modal('hide');
             $('#data').DataTable().ajax.reload();
         })
@@ -468,7 +468,7 @@ $(document).ready(async function () {
             pkid: $('#pkid2').val()
         }
 
-        $.post(url + '/acc-api/formremove', obj).done(res => {
+        $.post('/acc-api/formremove', obj).done(res => {
             $('#removeModal').modal('hide');
             $('#data').DataTable().ajax.reload();
         })
@@ -567,7 +567,7 @@ function editModal(ob) {
 
     $('#imgfile').hide()
 
-    $.get(url + '/acc-api/get-acc-info/' + ob).done(res => {
+    $.get('/acc-api/get-acc-info/' + ob).done(res => {
         // console.log(res)
         let data = res.data[0];
         marker.setLngLat({ lng: data.y, lat: data.x });
@@ -597,7 +597,7 @@ function editModal(ob) {
         $('#pkid').val(data.pkid);
     })
 
-    $.get(url + '/acc-api/get-acc-name/' + ob).done(res => {
+    $.get('/acc-api/get-acc-name/' + ob).done(res => {
         // console.log(res)
         res.data.forEach(async (v, i) => {
             // console.log(v.gid)
@@ -780,7 +780,7 @@ function editModal(ob) {
         })
     })
 
-    $.get(url + '/acc-api/get-acc-img/' + ob.pkid).done(res => {
+    $.get('/acc-api/get-acc-img/' + ob.pkid).done(res => {
         // console.log(res)
         res.data.map(r => $("#preview").attr('src', r.img))
     })

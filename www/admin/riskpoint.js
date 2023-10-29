@@ -14,7 +14,7 @@ $(document).ready(async function () {
             date_fix: $('#date_fix').val(),
             gid: $('#gid').val()
         }
-        $.post(url + '/acc-api/pin-risk-solve', obj).done(res => {
+        $.post('/acc-api/pin-risk-solve', obj).done(res => {
             // console.log(res)
             // getData()
         })
@@ -32,7 +32,7 @@ $(document).ready(async function () {
             map.removeLayer(riskpoint)
         }
 
-        $.post(url + '/acc-api/pin-risk-remove', obj).done(res => {
+        $.post('/acc-api/pin-risk-remove', obj).done(res => {
             // console.log(res);
             getData()
         })
@@ -147,7 +147,7 @@ function getData(dateStart, dateEnd) {
     $('#remove').prop('disabled', true)
 
     let mkArr = []
-    $.post(url + '/acc-api/pin-getdata', { start: dateStart, end: dateEnd }).done(res => {
+    $.post('/acc-api/pin-getdata', { start: dateStart, end: dateEnd }).done(res => {
         // console.log(res)
         const redMarker = L.icon({
             iconUrl: './marker/marker-red.svg',
@@ -210,7 +210,7 @@ function getSummary(dateStart, dateEnd) {
     let barCat = [];
     let barDat = [];
 
-    $.post(url + "/acc-api/pin-getdata-sum-amp", obj).done(res => {
+    $.post("/acc-api/pin-getdata-sum-amp", obj).done(res => {
         // console.log(res)
         res.data.map(x => {
             pieData.push({ name: x.place, y: Number(x.cnt) });
@@ -218,7 +218,7 @@ function getSummary(dateStart, dateEnd) {
         pieChart(pieData)
     })
 
-    $.post(url + "/acc-api/pin-getdata-sum-tam", obj).done(res => {
+    $.post("/acc-api/pin-getdata-sum-tam", obj).done(res => {
         // console.log(res)
         res.data.map(x => {
             barCat.push(x.place);
@@ -258,7 +258,7 @@ function showDetail(gid) {
     $('#status_fix').prop('disabled', false)
     $('#remove').prop('disabled', false)
     let icon = 'data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBpZD0iQ2FwYV8xIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiBoZWlnaHQ9IjUxMnB4IiB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgd2lkdGg9IjUxMnB4Ij48Zz48Zz48cGF0aCBkPSJtMTA4LjE2OSAwYy0xOS4wMDIgMC0zNC40MDYgMTUuNDA0LTM0LjQwNiAzNC40MDZ2NDQzLjE4OGMwIDE5LjAwMiAxNS40MDQgMzQuNDA2IDM0LjQwNiAzNC40MDZoMjk1LjY2MmMxOS4wMDIgMCAzNC40MDYtMTUuNDA0IDM0LjQwNi0zNC40MDZ2LTM3MS41YzAtNi45MTMtMi43NDYtMTMuNTQyLTcuNjM0LTE4LjQzMWwtODAuMDMtODAuMDNjLTQuODg4LTQuODg3LTExLjUxOC03LjYzMy0xOC40MzEtNy42MzN6IiBmaWxsPSIjZjVmNWY1Ii8+PC9nPjxwYXRoIGQ9Im00MzAuNjAzIDg3LjY2NC01My4wNDgtNTMuMDQ4LS4xODkgODguOTg1Yy0uMDEyIDUuNTg2IDQuNTEzIDEwLjEyMSAxMC4wOTkgMTAuMTIxIDUuNTc4IDAgMTAuMDk5IDQuNTIyIDEwLjA5OSAxMC4wOTl2MzMzLjc3NGMwIDE5LjAwMi0xNS40MDQgMzQuNDA2LTM0LjQwNiAzNC40MDZoNDAuNjcyYzE5LjAwMiAwIDM0LjQwNi0xNS40MDQgMzQuNDA2LTM0LjQwNnYtMzM2LjYxNC0zNC44ODdjLjAwMS02LjkxMy0yLjc0NS0xMy41NDItNy42MzMtMTguNDN6IiBmaWxsPSIjZWFlYWVhIi8+PHBhdGggZD0ibTQzMC42MDMgODcuNjY0LTgwLjAzLTgwLjAzYy0yLjIyOC0yLjIyOC00LjgyMS00LjAwNS03LjYzNC01LjI4NnY1OC41NDRjMCAxOS4wMDIgMTUuNDA0IDM0LjQwNiAzNC40MDYgMzQuNDA2aDU4LjU0NGMtMS4yODEtMi44MTQtMy4wNTgtNS40MDYtNS4yODYtNy42MzR6IiBmaWxsPSIjYThkMGQ1Ii8+PGc+PHBhdGggZD0ibTM4NS4zMjYgMzkwLjE3NWgtMjU4LjY1MmMtNi43NTkgMC0xMi4yMzgtNS40NzktMTIuMjM4LTEyLjIzOHYtMTg4LjE2OWMwLTYuNzU5IDUuNDc5LTEyLjIzOCAxMi4yMzgtMTIuMjM4aDI1OC42NTJjNi43NTkgMCAxMi4yMzggNS40NzkgMTIuMjM4IDEyLjIzOHYxODguMTY5YzAgNi43NTktNS40NzkgMTIuMjM4LTEyLjIzOCAxMi4yMzh6IiBmaWxsPSIjOWFlN2ZkIi8+PHBhdGggZD0ibTM4NS4zMjYgMTc3LjUyOWgtNDEuMDMxYzYuNzU5IDAgMTIuMjM4IDUuNDc5IDEyLjIzOCAxMi4yMzh2MTg4LjE2OWMwIDYuNzU5LTUuNDc5IDEyLjIzOC0xMi4yMzggMTIuMjM4aDQxLjAzMWM2Ljc1OSAwIDEyLjIzOC01LjQ3OSAxMi4yMzgtMTIuMjM4di0xODguMTY4YzAtNi43NTktNS40NzktMTIuMjM5LTEyLjIzOC0xMi4yMzl6IiBmaWxsPSIjNjRkY2ZjIi8+PHBhdGggZD0ibTMyNy40MzIgMjY5LjI4N2MtMy45MDMtNC42NjItMTEuMDcyLTQuNjYyLTE0Ljk3NCAwbC05NC4xNzIgMTEyLjUwMWMtMi4xMjggMi41NDItMi42NzggNS42MTQtMi4wNDcgOC4zODdoMTY5LjA4N2M2Ljc1OSAwIDEyLjIzOC01LjQ3OSAxMi4yMzgtMTIuMjM4di0yNC44Njh6IiBmaWxsPSIjODljNjI3Ii8+PHBhdGggZD0ibTM4NS4zMjYgMzkwLjE3NWM2Ljc1OSAwIDEyLjIzOC01LjQ3OSAxMi4yMzgtMTIuMjM4di0yNC44NjhsLTQxLjAzMS00OS4wMTh2ODYuMTI0eiIgZmlsbD0iIzdkYjcyMyIvPjxwYXRoIGQ9Im0yMDQuOTQ2IDIzOS41NTVjLTMuOTAzLTQuNjYyLTExLjA3Mi00LjY2Mi0xNC45NzQgMGwtNzUuNTM2IDkwLjIzN3Y0OC4xNDVjMCA2Ljc1OSA1LjQ3OSAxMi4yMzggMTIuMjM4IDEyLjIzOGgxOTkuNjM5Yy41NDQtMi43MDctLjAzMy01LjY3MS0yLjA5OC04LjEzOHoiIGZpbGw9IiM5NWQ1MjgiLz48L2c+PC9nPjwvc3ZnPgo='
-    $.get(url + '/acc-api/pin-getdata/' + gid).done(res => {
+    $.get('/acc-api/pin-getdata/' + gid).done(res => {
         let data = res.data[0]
         // console.log(data)
         let img = data.img !== '-' ? data.img : icon;

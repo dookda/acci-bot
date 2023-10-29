@@ -39,7 +39,7 @@ $(document).ready(function () {
     });
 
     // overelay
-    const pro = L.tileLayer.wms(url + "/geoserver/wms?", {
+    const pro = L.tileLayer.wms("/geoserver/wms?", {
         layers: 'th:province_4326',
         format: 'image/png',
         transparent: true,
@@ -48,7 +48,7 @@ $(document).ready(function () {
         lyr: 'basemap'
     });
 
-    const amp = L.tileLayer.wms(url + "/geoserver/wms?", {
+    const amp = L.tileLayer.wms("/geoserver/wms?", {
         layers: 'th:amphoe_4326',
         format: 'image/png',
         transparent: true,
@@ -57,7 +57,7 @@ $(document).ready(function () {
         lyr: 'basemap'
     });
 
-    const tam = L.tileLayer.wms(url + "/geoserver/wms?", {
+    const tam = L.tileLayer.wms("/geoserver/wms?", {
         layers: 'th:tambon_4326',
         format: 'image/png',
         transparent: true,
@@ -66,7 +66,7 @@ $(document).ready(function () {
         lyr: 'basemap'
     });
 
-    var acc_2016_4326 = L.tileLayer.wms(url + "/geoserver/wms?", {
+    var acc_2016_4326 = L.tileLayer.wms("/geoserver/wms?", {
         layers: 'acci:acc_2016_4326',
         format: 'image/png',
         transparent: true,
@@ -74,7 +74,7 @@ $(document).ready(function () {
         lyr: 'acc_2016_4326'
     });
 
-    var acc_2017_4326 = L.tileLayer.wms(url + "/geoserver/wms?", {
+    var acc_2017_4326 = L.tileLayer.wms("/geoserver/wms?", {
         layers: 'acci:acc_2017_4326',
         format: 'image/png',
         transparent: true,
@@ -82,7 +82,7 @@ $(document).ready(function () {
         lyr: 'acc_2017_4326'
     });
 
-    var acc_2018_4326 = L.tileLayer.wms(url + "/geoserver/wms?", {
+    var acc_2018_4326 = L.tileLayer.wms("/geoserver/wms?", {
         layers: 'acci:acc_2018_4326',
         format: 'image/png',
         transparent: true,
@@ -90,7 +90,7 @@ $(document).ready(function () {
         lyr: 'acc_2018_4326'
     });
 
-    var acc_2019_4326 = L.tileLayer.wms(url + "/geoserver/wms?", {
+    var acc_2019_4326 = L.tileLayer.wms("/geoserver/wms?", {
         layers: 'acci:acc_2019_4326',
         format: 'image/png',
         transparent: true,
@@ -98,7 +98,7 @@ $(document).ready(function () {
         lyr: 'acc_2019_4326'
     });
 
-    var acc_2020_4326 = L.tileLayer.wms(url + "/geoserver/wms?", {
+    var acc_2020_4326 = L.tileLayer.wms("/geoserver/wms?", {
         layers: 'acci:acc_2020_4326',
         format: 'image/png',
         transparent: true,
@@ -106,7 +106,7 @@ $(document).ready(function () {
         lyr: 'acc_2020_4326'
     });
 
-    var acc_2021_4326 = L.tileLayer.wms(url + "/geoserver/wms?", {
+    var acc_2021_4326 = L.tileLayer.wms("/geoserver/wms?", {
         layers: 'acci:acc_2021_4326',
         format: 'image/png',
         transparent: true,
@@ -115,7 +115,7 @@ $(document).ready(function () {
     });
 
     // new year
-    var acci_29dec58_4jan59 = L.tileLayer.wms(url + "/geoserver/wms?", {
+    var acci_29dec58_4jan59 = L.tileLayer.wms("/geoserver/wms?", {
         layers: 'acci:acci_29dec58_4jan59',
         format: 'image/png',
         transparent: true,
@@ -123,7 +123,7 @@ $(document).ready(function () {
         lyr: 'acci_29dec58_4jan59'
     });
 
-    var acci_29dec59_4jan60 = L.tileLayer.wms(url + "/geoserver/wms?", {
+    var acci_29dec59_4jan60 = L.tileLayer.wms("/geoserver/wms?", {
         layers: 'acci:acci_29dec59_4jan60',
         format: 'image/png',
         transparent: true,
@@ -131,7 +131,7 @@ $(document).ready(function () {
         lyr: 'acci_29dec59_4jan60'
     });
 
-    var acci_29dec60_4jan61 = L.tileLayer.wms(url + "/geoserver/wms?", {
+    var acci_29dec60_4jan61 = L.tileLayer.wms("/geoserver/wms?", {
         layers: 'acci:acci_29dec60_4jan61',
         format: 'image/png',
         transparent: true,
@@ -139,7 +139,7 @@ $(document).ready(function () {
         lyr: 'acci_29dec60_4jan61'
     });
 
-    var acci_29dec61_4jan62 = L.tileLayer.wms(url + "/geoserver/wms?", {
+    var acci_29dec61_4jan62 = L.tileLayer.wms("/geoserver/wms?", {
         layers: 'acci:acci_29dec61_4jan62',
         format: 'image/png',
         transparent: true,
@@ -147,7 +147,7 @@ $(document).ready(function () {
         lyr: 'acci_29dec61_4jan62'
     });
 
-    var acci_29dec62_4jan63 = L.tileLayer.wms(url + "/geoserver/wms?", {
+    var acci_29dec62_4jan63 = L.tileLayer.wms("/geoserver/wms?", {
         layers: 'acci:acci_29dec62_4jan63',
         format: 'image/png',
         transparent: true,
@@ -156,7 +156,7 @@ $(document).ready(function () {
     });
 
     // songkarn
-    var acci_11_17apr59 = L.tileLayer.wms(url + "/geoserver/wms?", {
+    var acci_11_17apr59 = L.tileLayer.wms("/geoserver/wms?", {
         layers: 'acci:acci_11_17apr59',
         format: 'image/png',
         transparent: true,
@@ -164,7 +164,7 @@ $(document).ready(function () {
         lyr: 'acci_11_17apr59'
     });
 
-    var acci_11_17apr60 = L.tileLayer.wms(url + "/geoserver/wms?", {
+    var acci_11_17apr60 = L.tileLayer.wms("/geoserver/wms?", {
         layers: 'acci:acci_11_17apr60',
         format: 'image/png',
         transparent: true,
@@ -172,7 +172,7 @@ $(document).ready(function () {
         lyr: 'acci_11_17apr60'
     });
 
-    var acci_11_17apr61 = L.tileLayer.wms(url + "/geoserver/wms?", {
+    var acci_11_17apr61 = L.tileLayer.wms("/geoserver/wms?", {
         layers: 'acci:acci_11_17apr61',
         format: 'image/png',
         transparent: true,
@@ -180,7 +180,7 @@ $(document).ready(function () {
         lyr: 'acci_11_17apr61'
     });
 
-    var acci_11_17apr62 = L.tileLayer.wms(url + "/geoserver/wms?", {
+    var acci_11_17apr62 = L.tileLayer.wms("/geoserver/wms?", {
         layers: 'acci:acci_11_17apr62',
         format: 'image/png',
         transparent: true,

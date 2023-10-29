@@ -67,7 +67,7 @@ function onLocationFound(e) {
     gps.on('dragend', (e) => {
         console.log(e)
     })
-    $.get(url + `/acc-api/getaddress/${x}/${y}`).done((res) => {
+    $.get(`/acc-api/getaddress/${x}/${y}`).done((res) => {
         tam = res.data[0].tam_name;
         amp = res.data[0].amp_name;
         pro = res.data[0].pro_name;
@@ -174,7 +174,7 @@ function saveData() {
         geom: JSON.stringify(gps.toGeoJSON().geometry)
     }
 
-    $.post(url + '/acc-api/lineinsert', obj).done((res) => {
+    $.post('/acc-api/lineinsert', obj).done((res) => {
         if (res.status == 'success') {
             closed();
         }
